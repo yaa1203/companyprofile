@@ -30,13 +30,18 @@
             background: #495057;
             color: #fff;
         }
+        .sidebar .active {
+            background: #0d6efd;
+            color: #fff !important;
+        }
         .content {
             margin-left: 220px;
             padding: 20px;
         }
-        .sidebar .active {
-            background: #0d6efd;
-            color: #fff !important;
+        .navbar-custom {
+            margin-left: 220px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
         }
     </style>
 </head>
@@ -45,31 +50,49 @@
     <div class="sidebar">
         <h4 class="text-center text-light mb-4">⚡ Admin Panel</h4>
         
-        <a href="{{ url('home') }}" 
-           class="{{ request()->routeIs('home') ? 'active' : '' }}">
+        <a href="{{ url('admin/dashboard') }}" 
+           class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
            📊 Dashboard
         </a>
         
-        <a href="{{ url('tentang') }}" 
+        <a href="{{ url('admin/tentang') }}" 
            class="{{ request()->routeIs('tentang.*') ? 'active' : '' }}">
            🏢 Tentang
         </a>
         
-        <a href="{{ url('layanan') }}" 
+        <a href="{{ url('admin/layanan') }}" 
            class="{{ request()->routeIs('layanan.*') ? 'active' : '' }}">
            🛠️ Layanan
         </a>
         
-        <a href="{{ url('portofolio') }}" 
+        <a href="{{ url('admin/portofolio') }}" 
            class="{{ request()->routeIs('portofolio.*') ? 'active' : '' }}">
            🖼️ Portofolio
         </a>
         
-        <a href="{{ url('kontak') }}" 
+        <a href="{{ url('admin/kontak') }}" 
            class="{{ request()->routeIs('kontak.*') ? 'active' : '' }}">
            📩 Kontak
         </a>
     </div>
+
+    <!-- Navbar atas -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom px-3">
+        <div class="container-fluid">
+            <span class="navbar-text me-auto">
+                Selamat datang, 
+                <strong>
+                    {{ \App\Models\Admin::find(session('admin_id'))->name ?? 'Admin' }}
+                </strong>
+            </span>
+            <form method="POST" action="{{ route('admin.logout') }}">
+                @csrf
+                <button type="submit" class="btn btn-outline-danger btn-sm">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </nav>
 
     <!-- Konten -->
     <div class="content">
