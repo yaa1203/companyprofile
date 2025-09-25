@@ -15,6 +15,15 @@ use App\Http\Controllers\AdminAuthController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('privacy', function () {
+    return view('privacy');
+});
+Route::get('services', function () {
+    return view('service');
+});
+Route::get('cookie', function () {
+    return view('cookie');
+});
 
 Route::get('about', [AboutController::class, 'index'])->name('about.index');
 Route::resource('service', ServiceController::class);

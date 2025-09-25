@@ -6,7 +6,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('admin.portofolio.update', $portofolio) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('portofolio.update', $portofolio) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -38,7 +38,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('admin.portofolio.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('portofolio.index') }}" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
 </div>

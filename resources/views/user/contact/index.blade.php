@@ -1,16 +1,16 @@
 @extends('user.layouts.app')
-@section('title', 'Contact - ' . $contactInfo['company_name'])
+@section('title', 'Contact - Digital Solutions')
 @section('content')
-    <!-- Hero Section (tetap sama) -->
+    <!-- Hero Section -->
     <section class="relative min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex items-center">
-        <!-- Background decoration matching home page -->
+        <!-- Background decoration -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute -top-40 -right-32 w-80 h-80 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-            <div class="absolute -bottom-8 left-20 w-80 h-80 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-            <div class="absolute -bottom-20 right-20 w-80 h-80 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+            <div class="absolute -top-40 -right-32 w-80 h-80 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+            <div class="absolute -bottom-8 left-20 w-80 h-80 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style="animation-delay: 2s;"></div>
+            <div class="absolute -bottom-20 right-20 w-80 h-80 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style="animation-delay: 4s;"></div>
         </div>
         
-        <div class="relative container mx-auto px-6 pb-32">
+        <div class="relative container mx-auto px-4 sm:px-6 pb-32">
             <div class="max-w-4xl mx-auto text-center">
                 <div class="mb-6">
                     <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white/80 text-indigo-700 backdrop-blur-sm border border-indigo-100">
@@ -19,14 +19,14 @@
                     </span>
                 </div>
                 
-                <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
                     <span class="text-gray-900">Hubungi</span>
                     <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                         Kami
                     </span>
                 </h1>
                 
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed">
+                <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed">
                     Siap membantu mewujudkan visi digital Anda. Mari diskusikan kebutuhan proyek dan temukan solusi terbaik bersama tim ahli kami
                 </p>
                 
@@ -56,18 +56,18 @@
     
     <!-- Contact Form & Info -->
     <section id="contact-form" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-4 sm:px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                     Mari <span class="text-indigo-600">Berkolaborasi</span>
                 </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
                     Hubungi tim kami untuk konsultasi gratis dan diskusi mendalam tentang kebutuhan digital bisnis Anda
                 </p>
             </div>
             <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                <!-- Contact Form (tetap sama) -->
-                <div class="group bg-white rounded-2xl border border-gray-100 hover:border-indigo-200 transition-all duration-300 hover:shadow-2xl p-8">
+                <!-- Contact Form -->
+                <div class="group bg-white rounded-2xl border border-gray-100 hover:border-indigo-200 transition-all duration-300 hover:shadow-2xl p-6 md:p-8">
                     <div class="mb-8">
                         <h3 class="text-2xl font-bold text-gray-900 mb-4">Kirim Pesan</h3>
                         <p class="text-gray-600">Isi formulir di bawah ini dan kami akan merespons dalam 24 jam</p>
@@ -75,7 +75,7 @@
                     <!-- Success Message -->
                     @if(session('success'))
                         <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl flex items-center space-x-3">
-                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                       d="M10 18a8 8 0 100-16 8 8 0 000 
                                          16zm3.707-9.293a1 1 0 
@@ -92,7 +92,7 @@
                     <!-- Error Message -->
                     @if(session('error'))
                         <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl flex items-center space-x-3">
-                            <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                       d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
                                       clip-rule="evenodd">
@@ -126,7 +126,7 @@
                                 </div>
                                 @error('name')
                                     <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd"
                                                   d="M18 10a8 8 0 11-16 0 8 8 0 
                                                      0116 0zm-7 4a1 1 0 
@@ -163,7 +163,7 @@
                                 </div>
                                 @error('email')
                                     <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd"
                                                   d="M18 10a8 8 0 11-16 0 8 8 0 
                                                      0116 0zm-7 4a1 1 0 
@@ -189,7 +189,7 @@
                                       placeholder="Ceritakan detail kebutuhan proyek Anda..." required>{{ old('message') }}</textarea>
                             @error('message')
                                 <p class="mt-2 text-sm text-red-600 flex items-center">
-                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                               d="M18 10a8 8 0 11-16 0 8 8 0 
                                                  0116 0zm-7 4a1 1 0 
@@ -225,15 +225,16 @@
                         </button>
                     </form>
                 </div>
-                <!-- Contact Info - Diperkecil -->
+                
+                <!-- Contact Info -->
                 <div class="lg:pl-6 flex flex-col justify-center">
                     <h3 class="text-2xl font-bold text-gray-900 mb-6">Informasi Kontak</h3>
                     
-                    <!-- Grid Container for Contact Info - Diperkecil -->
-                    <div id="contactContainer" class="space-y-4">
-                        <!-- WhatsApp Info - Diperkecil -->
-                        <div class="contact-card group bg-white rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300 p-4">
-                            <div class="flex items-center space-x-3">
+                    <!-- Contact Info Cards -->
+                    <div class="space-y-4">
+                        <!-- WhatsApp Info -->
+                        <div class="group bg-white rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300 p-5">
+                            <div class="flex items-center space-x-4">
                                 <div class="flex-shrink-0">
                                     <div class="w-12 h-12 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                         <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
@@ -252,9 +253,9 @@
                             </div>
                         </div>
                         
-                        <!-- Email Info - Diperkecil -->
-                        <div class="contact-card group bg-white rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300 p-4">
-                            <div class="flex items-center space-x-3">
+                        <!-- Email Info -->
+                        <div class="group bg-white rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300 p-5">
+                            <div class="flex items-center space-x-4">
                                 <div class="flex-shrink-0">
                                     <div class="w-12 h-12 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                         <svg class="w-6 h-6 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
@@ -265,18 +266,19 @@
                                 </div>
                                 <div class="flex-1">
                                     <h4 class="text-lg font-bold text-gray-900 mb-1">Email</h4>
-                                    @foreach($contactInfo['contact']['email'] as $email)
-                                        <p class="text-gray-600 text-sm">
-                                            <a href="mailto:{{ $email }}" class="hover:text-indigo-600 transition-colors">{{ $email }}</a>
-                                        </p>
-                                    @endforeach
+                                    <p class="text-gray-600 text-sm">
+                                        <a href="mailto:info@digitalsolutions.com" class="hover:text-indigo-600 transition-colors">info@digitalsolutions.com</a>
+                                    </p>
+                                    <p class="text-gray-600 text-sm">
+                                        <a href="mailto:support@digitalsolutions.com" class="hover:text-indigo-600 transition-colors">support@digitalsolutions.com</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Phone Info - Diperkecil -->
-                        <div class="contact-card group bg-white rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300 p-4">
-                            <div class="flex items-center space-x-3">
+                        <!-- Phone Info -->
+                        <div class="group bg-white rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300 p-5">
+                            <div class="flex items-center space-x-4">
                                 <div class="flex-shrink-0">
                                     <div class="w-12 h-12 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                         <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
@@ -286,18 +288,19 @@
                                 </div>
                                 <div class="flex-1">
                                     <h4 class="text-lg font-bold text-gray-900 mb-1">Telepon</h4>
-                                    @foreach($contactInfo['contact']['phone'] as $phone)
-                                        <p class="text-gray-600 text-sm">
-                                            <a href="tel:{{ str_replace([' ', '-'], '', $phone) }}" class="hover:text-purple-600 transition-colors">{{ $phone }}</a>
-                                        </p>
-                                    @endforeach
+                                    <p class="text-gray-600 text-sm">
+                                        <a href="tel:+62211234567" class="hover:text-purple-600 transition-colors">+62 21 1234 567</a>
+                                    </p>
+                                    <p class="text-gray-600 text-sm">
+                                        <a href="tel:+62212345678" class="hover:text-purple-600 transition-colors">+62 21 2345 678</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Address Info - Diperkecil -->
-                        <div class="contact-card group bg-white rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300 p-4">
-                            <div class="flex items-center space-x-3">
+                        <!-- Address Info -->
+                        <div class="group bg-white rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300 p-5">
+                            <div class="flex items-start space-x-4">
                                 <div class="flex-shrink-0">
                                     <div class="w-12 h-12 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                         <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
@@ -420,86 +423,99 @@
         </div>
     </section>
     
-    <!-- FAQ Section - Diperkecil -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <div class="text-center mb-12">
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <div class="text-center mb-16">
                 <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                     Pertanyaan <span class="text-indigo-600">Umum</span>
                 </h3>
-                <p class="text-lg text-gray-600">Temukan jawaban atas pertanyaan yang sering diajukan mengenai layanan kami</p>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Temukan jawaban atas pertanyaan yang sering diajukan mengenai layanan kami</p>
             </div>
-            <div class="space-y-4">
-                <!-- FAQ 1 - Diperkecil -->
-                <details class="group bg-white rounded-xl p-4 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
+            <div class="space-y-6">
+                <!-- FAQ 1 -->
+                <details class="group bg-white rounded-xl p-6 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
                     <summary class="flex justify-between items-center cursor-pointer">
                         <h4 class="text-lg font-semibold text-gray-900">Berapa lama waktu pengerjaan proyek?</h4>
                         <span class="transition-transform group-open:rotate-180">
                             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width-2"
-                                      d="M19 9l-7 7-7-7"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </span>
                     </summary>
-                    <p class="mt-3 text-gray-600 text-sm">Waktu pengerjaan bervariasi tergantung kompleksitas proyek, biasanya antara 2–8 minggu.</p>
+                    <p class="mt-4 text-gray-600 leading-relaxed">Waktu pengerjaan bervariasi tergantung kompleksitas proyek. Website sederhana biasanya memakan waktu 2-4 minggu, sedangkan aplikasi web kompleks bisa memerlukan 6-12 minggu. Kami akan memberikan timeline yang jelas setelah evaluasi kebutuhan proyek Anda.</p>
                 </details>
-                <!-- FAQ 2 - Diperkecil -->
-                <details class="group bg-white rounded-xl p-4 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
+                
+                <!-- FAQ 2 -->
+                <details class="group bg-white rounded-xl p-6 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
                     <summary class="flex justify-between items-center cursor-pointer">
-                        <h4 class="text-lg font-semibold text-gray-900">Apakah bisa request fitur khusus?</h4>
+                        <h4 class="text-lg font-semibold text-gray-900">Apakah bisa request fitur khusus sesuai kebutuhan bisnis?</h4>
                         <span class="transition-transform group-open:rotate-180">
                             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width-2"
-                                      d="M19 9l-7 7-7-7"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </span>
                     </summary>
-                    <p class="mt-3 text-gray-600 text-sm">Tentu, kami menyediakan layanan kustom sesuai kebutuhan bisnis Anda.</p>
+                    <p class="mt-4 text-gray-600 leading-relaxed">Tentu saja! Kami mengkhususkan diri dalam pengembangan solusi kustom sesuai kebutuhan unik bisnis Anda. Tim kami akan bekerja sama dengan Anda untuk memahami requirement dan mengembangkan fitur yang tepat untuk mencapai tujuan bisnis Anda.</p>
                 </details>
-                <!-- FAQ 3 - Diperkecil -->
-                <details class="group bg-white rounded-xl p-4 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
+                
+                <!-- FAQ 3 -->
+                <details class="group bg-white rounded-xl p-6 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
                     <summary class="flex justify-between items-center cursor-pointer">
-                        <h4 class="text-lg font-semibold text-gray-900">Apakah ada layanan maintenance?</h4>
+                        <h4 class="text-lg font-semibold text-gray-900">Apakah ada layanan maintenance setelah proyek selesai?</h4>
                         <span class="transition-transform group-open:rotate-180">
                             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width-2"
-                                      d="M19 9l-7 7-7-7"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </span>
                     </summary>
-                    <p class="mt-3 text-gray-600 text-sm">Ya, kami menyediakan paket maintenance bulanan maupun tahunan sesuai kebutuhan.</p>
+                    <p class="mt-4 text-gray-600 leading-relaxed">Ya, kami menyediakan berbagai paket maintenance bulanan dan tahunan yang mencakup update security, backup data, monitoring performa, dan dukungan teknis. Paket maintenance dapat disesuaikan dengan kebutuhan dan budget Anda.</p>
                 </details>
-                <!-- FAQ 4 - Diperkecil -->
-                <details class="group bg-white rounded-xl p-4 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
+                
+                <!-- FAQ 4 -->
+                <details class="group bg-white rounded-xl p-6 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
                     <summary class="flex justify-between items-center cursor-pointer">
-                        <h4 class="text-lg font-semibold text-gray-900">Bagaimana cara menghubungi customer service?</h4>
+                        <h4 class="text-lg font-semibold text-gray-900">Bagaimana sistem pembayaran untuk proyek?</h4>
                         <span class="transition-transform group-open:rotate-180">
                             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width-2"
-                                      d="M19 9l-7 7-7-7"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </span>
                     </summary>
-                    <p class="mt-3 text-gray-600 text-sm">Anda dapat menghubungi kami melalui formulir di atas, email, WhatsApp, atau datang langsung ke kantor kami.</p>
+                    <p class="mt-4 text-gray-600 leading-relaxed">Kami menerapkan sistem pembayaran bertahap: 50% di awal proyek sebagai down payment, 30% saat milestone tertentu tercapai, dan 20% sisanya setelah proyek selesai dan handover. Pembayaran dapat dilakukan melalui transfer bank atau metode pembayaran digital lainnya.</p>
+                </details>
+                
+                <!-- FAQ 5 -->
+                <details class="group bg-white rounded-xl p-6 border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all duration-300">
+                    <summary class="flex justify-between items-center cursor-pointer">
+                        <h4 class="text-lg font-semibold text-gray-900">Apakah website yang dibuat sudah mobile-friendly dan SEO optimized?</h4>
+                        <span class="transition-transform group-open:rotate-180">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </span>
+                    </summary>
+                    <p class="mt-4 text-gray-600 leading-relaxed">Absolut! Semua website yang kami kembangkan sudah responsive dan mobile-friendly by default. Kami juga menerapkan best practices SEO seperti optimasi kecepatan loading, struktur HTML yang proper, meta tags, dan sitemap untuk membantu website Anda mudah ditemukan di search engine.</p>
                 </details>
             </div>
         </div>
     </section>
     
-    <!-- CTA Section - Diperkecil -->
-    <section class="relative bg-gradient-to-br from-gray-50 to-blue-50 py-16">
-        <div class="container mx-auto px-6 text-center max-w-3xl">
-            <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Siap Memulai Proyek Anda?</h3>
-            <p class="text-lg text-gray-600 mb-6">Hubungi tim kami hari ini dan mari ciptakan solusi digital yang berdampak untuk bisnis Anda</p>
+    <!-- CTA Section -->
+    <section class="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 py-20">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="relative container mx-auto px-4 sm:px-6 text-center max-w-4xl">
+            <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">Siap Memulai Proyek Anda?</h3>
+            <p class="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">Hubungi tim kami hari ini dan mari ciptakan solusi digital yang berdampak untuk bisnis Anda</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:081211391835" class="inline-flex items-center bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <a href="tel:+6281211391835" class="inline-flex items-center bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 005.236 5.236l.773-1.548a1 1 0 011.06-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3a1 1 0 011-1z" clip-rule="evenodd"></path>
                     </svg>
                     <span>Hubungi Langsung</span>
                 </a>
-                <a href="https://wa.me/6281211391835?text=Halo,%20saya%20ingin%20konsultasi%20tentang%20proyek%20digital" target="_blank" class="inline-flex items-center bg-transparent text-gray-900 px-6 py-3 rounded-xl font-semibold border-2 border-gray-200 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300">
-                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <a href="https://wa.me/6281211391835?text=Halo,%20saya%20ingin%20konsultasi%20tentang%20proyek%20digital" target="_blank" class="inline-flex items-center bg-transparent text-white px-8 py-4 rounded-xl font-semibold border-2 border-white/30 hover:bg-white hover:text-indigo-600 hover:border-white transition-all duration-300">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488z"/>
                     </svg>
                     <span>Chat WhatsApp</span>
@@ -508,95 +524,8 @@
         </div>
     </section>
     
-    <style>
-        /* List View Styles - Diperkecil */
-        .list-view {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 100%;
-        }
-        
-        .list-view .contact-card {
-            display: flex;
-            flex-direction: row;
-            height: auto;
-            min-height: 120px;
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
-        
-        .list-view .contact-card .flex-shrink-0 {
-            width: 80px;
-            height: 80px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .list-view .contact-card .w-12 {
-            width: 32px;
-            height: 32px;
-        }
-        
-        .list-view .contact-card .w-6 {
-            width: 16px;
-            height: 16px;
-        }
-        
-        .list-view .contact-card .flex-1 {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 1rem;
-        }
-        
-        .list-view .contact-card .text-lg {
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .list-view .contact-card .text-sm {
-            font-size: 0.875rem;
-            line-height: 1.4;
-        }
-        
-        .list-view .contact-card .mb-1 {
-            margin-bottom: 0.25rem;
-        }
-        
-        /* Responsive adjustments for list view */
-        @media (max-width: 768px) {
-            .list-view .contact-card {
-                flex-direction: column;
-                height: auto;
-            }
-            
-            .list-view .contact-card .flex-shrink-0 {
-                width: 100%;
-                height: 80px;
-                flex-shrink: 0;
-            }
-            
-            .list-view .contact-card .flex-1 {
-                padding: 0.75rem;
-            }
-        }
-        
-        /* Active button style - Diperkecil */
-        .view-toggle-btn.active {
-            background-color: #4F46E5;
-            color: white;
-            border-color: #4F46E5;
-        }
-    </style>
-    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const contactContainer = document.getElementById('contactContainer');
-            
             // JavaScript untuk Maps Loading
             const iframe = document.querySelector('iframe');
             const loadingOverlay = document.getElementById('map-loading');
@@ -610,6 +539,7 @@
                         }, 300);
                     }, 1000);
                 });
+                
                 // Fallback jika iframe tidak load dalam 5 detik
                 setTimeout(function() {
                     if (loadingOverlay.style.display !== 'none') {
