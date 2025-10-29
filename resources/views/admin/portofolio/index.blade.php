@@ -7,578 +7,167 @@
 
 @section('content')
 <style>
-    .header-section {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        margin-bottom: 32px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: 1px solid #e2e8f0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
     
-    .header-info {
-        display: flex;
-        align-items: center;
-    }
-    
-    .header-icon {
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, #f59e0b, #d97706);
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 20px;
-        margin-right: 16px;
-        box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
-    }
-    
-    .header-text h3 {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 700;
-        color: #1e293b;
-    }
-    
-    .header-text p {
-        margin: 0;
-        font-size: 14px;
-        color: #64748b;
-    }
-    
-    .add-btn {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
-        color: white;
-        border: none;
-        border-radius: 25px;
-        padding: 12px 24px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-    }
-    
-    .add-btn:hover {
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 12px 25px rgba(99, 102, 241, 0.4);
-    }
-    
-    .add-btn i {
-        margin-right: 8px;
-        font-size: 16px;
-    }
-    
-    .view-toggle {
-        background: white;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 24px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: 1px solid #e2e8f0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .toggle-buttons {
-        display: flex;
-        background: #f1f5f9;
-        border-radius: 8px;
-        padding: 4px;
-    }
-    
-    .toggle-btn {
-        background: transparent;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 6px;
-        color: #64748b;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-    }
-    
-    .toggle-btn.active {
-        background: white;
-        color: #6366f1;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    .toggle-btn i {
-        margin-right: 6px;
-    }
-    
-    .stats-info {
-        display: flex;
-        gap: 24px;
-        align-items: center;
-    }
-    
-    .stat-item {
-        text-align: center;
-    }
-    
-    .stat-number {
-        font-size: 20px;
-        font-weight: 700;
-        color: #1e293b;
-    }
-    
-    .stat-label {
-        font-size: 12px;
-        color: #64748b;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    /* Grid View */
-    .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 24px;
-        margin-bottom: 32px;
-    }
-    
-    .portfolio-card {
-        background: white;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e2e8f0;
-        transition: all 0.3s ease;
-        position: relative;
-    }
-    
-    .portfolio-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
-    }
-    
-    .portfolio-image {
-        position: relative;
-        height: 200px;
-        overflow: hidden;
-    }
-    
-    .portfolio-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: all 0.3s ease;
-    }
-    
-    .portfolio-card:hover .portfolio-image img {
-        transform: scale(1.05);
-    }
-    
-    .image-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
-        opacity: 0;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .portfolio-card:hover .image-overlay {
-        opacity: 1;
-    }
-    
-    .overlay-actions {
-        display: flex;
-        gap: 12px;
-    }
-    
-    .overlay-btn {
-        background: rgba(255, 255, 255, 0.9);
-        color: #1e293b;
-        border: none;
-        border-radius: 25px;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        cursor: pointer;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-    }
-    
-    .overlay-btn:hover {
-        background: white;
-        transform: translateY(-2px);
-        color: #1e293b;
-    }
-    
-    .overlay-btn i {
-        margin-right: 6px;
-    }
-    
-    .portfolio-badge {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        background: linear-gradient(135deg, #f59e0b, #d97706);
-        color: white;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 600;
-        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-    }
-    
-    .portfolio-content {
-        padding: 20px;
-    }
-    
-    .portfolio-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 8px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    
-    .portfolio-description {
-        color: #64748b;
-        font-size: 14px;
-        line-height: 1.5;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    
-    /* Table View */
-    .portfolio-table {
-        display: none;
-        background: white;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e2e8f0;
-    }
-    
-    .portfolio-table.active {
-        display: block;
-    }
-    
-    .table-modern {
-        margin: 0;
-        font-size: 14px;
-    }
-    
-    .table-modern thead {
-        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-    }
-    
-    .table-modern thead th {
-        border: none;
-        padding: 20px 16px;
-        font-weight: 600;
-        color: #1e293b;
-        text-transform: uppercase;
-        font-size: 12px;
-        letter-spacing: 0.5px;
-    }
-    
-    .table-modern tbody tr {
-        border-bottom: 1px solid #f1f5f9;
-        transition: all 0.3s ease;
-    }
-    
-    .table-modern tbody tr:hover {
-        background: #f8fafc;
-    }
-    
-    .table-modern tbody td {
-        border: none;
-        padding: 16px;
-        vertical-align: middle;
-    }
-    
-    .table-image {
-        width: 60px;
-        height: 60px;
-        border-radius: 8px;
-        object-fit: cover;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    
-    .table-actions {
-        display: flex;
-        gap: 8px;
-    }
-    
-    .btn-edit-table {
-        background: linear-gradient(135deg, #f59e0b, #d97706);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 6px 12px;
-        font-size: 12px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-    }
-    
-    .btn-edit-table:hover {
-        color: white;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-    }
-    
-    .btn-delete-table {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 6px 12px;
-        font-size: 12px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-    
-    .btn-delete-table:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-    }
-    
-    .empty-state {
-        text-align: center;
-        padding: 80px 32px;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e2e8f0;
-    }
-    
-    .empty-icon {
-        font-size: 80px;
-        color: #cbd5e1;
-        margin-bottom: 24px;
-    }
-    
-    .empty-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: #475569;
-        margin-bottom: 12px;
-    }
-    
-    .empty-description {
-        font-size: 16px;
-        color: #64748b;
-        margin-bottom: 32px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1.6;
-    }
-    
-    .pagination-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-top: 32px;
-    }
-    
-    .pagination {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: 1px solid #e2e8f0;
-        padding: 8px;
-    }
-    
-    @media (max-width: 768px) {
-        .portfolio-grid {
-            grid-template-columns: 1fr;
-            gap: 16px;
+    @keyframes slideUp {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
         }
-        
-        .header-section {
-            flex-direction: column;
-            text-align: center;
-            gap: 16px;
+        to {
+            transform: translateY(0);
+            opacity: 1;
         }
-        
-        .view-toggle {
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .stats-info {
-            justify-content: center;
-        }
-        
-        .portfolio-content {
-            padding: 16px;
-        }
-        
-        .empty-state {
-            padding: 60px 20px;
-        }
-        
-        .table-modern {
-            font-size: 12px;
-        }
-        
-        .table-modern thead th {
-            padding: 12px 8px;
-        }
-        
-        .table-modern tbody td {
-            padding: 12px 8px;
-        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .delete-modal-overlay.active {
+        display: flex;
+    }
+    
+    .animate-fadeIn {
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .animate-slideUp {
+        animation: slideUp 0.4s ease;
+    }
+    
+    .animate-pulse-custom {
+        animation: pulse 2s ease infinite;
     }
 </style>
 
 @if(session('success'))
-    <div class="alert alert-success" style="border-radius: 12px; border: none; padding: 16px 20px; margin-bottom: 24px; background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; border-left: 4px solid #10b981;">
+    <div class="bg-gradient-to-r from-green-100 to-green-200 text-green-800 rounded-xl border-none p-4 mb-6 border-l-4 border-green-500">
         <i class="bi bi-check-circle-fill me-2"></i>
         {{ session('success') }}
     </div>
 @endif
 
 <!-- Header Section -->
-<div class="header-section">
-    <div class="header-info">
-        <div class="header-icon">
+<div class="bg-white rounded-2xl p-6 mb-8 shadow-lg border border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="flex items-center">
+        <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center text-white text-xl mr-4 shadow-lg">
             <i class="bi bi-images"></i>
         </div>
-        <div class="header-text">
-            <h3>Kelola Portofolio</h3>
-            <p>Total {{ count($portofolios) }} portofolio tersimpan</p>
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 m-0">Kelola Portofolio</h3>
+            <p class="text-sm text-slate-500 m-0">Total {{ count($portofolios) }} portofolio tersimpan</p>
         </div>
     </div>
-    <a href="{{ route('portofolio.create') }}" class="add-btn">
-        <i class="bi bi-plus-circle"></i>
+    <a href="{{ route('portofolio.create') }}" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full px-6 py-3 font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center">
+        <i class="bi bi-plus-circle mr-2 text-base"></i>
         Tambah Portofolio Baru
     </a>
 </div>
 
 @if(count($portofolios) > 0)
     <!-- View Toggle & Statistics -->
-    <div class="view-toggle">
-        <div class="toggle-buttons">
-            <button class="toggle-btn active" onclick="toggleView('grid')" id="gridBtn">
-                <i class="bi bi-grid-3x3"></i>
+    <div class="bg-white rounded-xl p-5 mb-6 shadow-lg border border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex bg-gray-100 rounded-lg p-1">
+            <button class="toggle-btn bg-white text-indigo-500 shadow-md border-none px-4 py-2 rounded-md font-medium transition-all duration-300 flex items-center" onclick="toggleView('grid')" id="gridBtn">
+                <i class="bi bi-grid-3x3 mr-2"></i>
                 Grid View
             </button>
-            <button class="toggle-btn" onclick="toggleView('table')" id="tableBtn">
-                <i class="bi bi-table"></i>
+            <button class="toggle-btn bg-transparent text-slate-500 border-none px-4 py-2 rounded-md font-medium transition-all duration-300 flex items-center" onclick="toggleView('table')" id="tableBtn">
+                <i class="bi bi-table mr-2"></i>
                 Table View
             </button>
         </div>
-        <div class="stats-info">
-            <div class="stat-item">
-                <div class="stat-number">{{ count($portofolios) }}</div>
-                <div class="stat-label">Total Portfolio</div>
+        <div class="flex gap-6 items-center">
+            <div class="text-center">
+                <div class="text-xl font-bold text-slate-800">{{ count($portofolios) }}</div>
+                <div class="text-xs text-slate-500 uppercase tracking-wide">Total Portfolio</div>
             </div>
         </div>
     </div>
 
     <!-- Grid View -->
-    <div class="portfolio-grid" id="gridView">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" id="gridView">
         @foreach($portofolios as $index => $p)
-            <div class="portfolio-card" style="animation-delay: {{ $index * 0.1 }}s">
-                <div class="portfolio-image">
+            <div class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative">
+                <div class="relative h-48 overflow-hidden group">
                     @if($p->gambar)
-                        <img src="{{ asset('storage/' . $p->gambar) }}" alt="{{ $p->judul }}">
-                        <div class="portfolio-badge">
+                        <img src="{{ asset('storage/' . $p->gambar) }}" alt="{{ $p->judul }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute top-3 right-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
                             <i class="bi bi-image"></i> Bergambar
                         </div>
                     @else
-                        <img src="https://via.placeholder.com/400x200/f59e0b/ffffff?text=No+Image" alt="Default">
-                        <div class="portfolio-badge" style="background: linear-gradient(135deg, #64748b, #475569);">
+                        <img src="https://via.placeholder.com/400x200/f59e0b/ffffff?text=No+Image" alt="Default" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-gradient-to-r from-slate-500 to-slate-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
                             <i class="bi bi-image-alt"></i> No Image
                         </div>
                     @endif
-                    
-                    <div class="image-overlay">
-                        <div class="overlay-actions">
-                            <a href="{{ route('portofolio.edit', $p) }}" class="overlay-btn">
-                                <i class="bi bi-pencil-square"></i>
-                                Edit
-                            </a>
-                            <button class="overlay-btn" onclick="deletePortfolio({{ $p->id }}, '{{ $p->judul }}')">
-                                <i class="bi bi-trash3"></i>
-                                Hapus
-                            </button>
-                        </div>
-                    </div>
                 </div>
                 
-                <div class="portfolio-content">
-                    <h5 class="portfolio-title">{{ $p->judul }}</h5>
-                    <p class="portfolio-description">{{ Str::limit($p->deskripsi, 120) }}</p>
+                <div class="p-5">
+                    <h5 class="text-lg font-bold text-slate-800 mb-2 line-clamp-2">{{ $p->judul }}</h5>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 mb-4">{{ Str::limit($p->deskripsi, 120) }}</p>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2 pt-3 border-t border-gray-100">
+                        <a href="{{ route('portofolio.edit', $p) }}" class="flex-1 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-center rounded-lg px-4 py-2.5 text-sm font-semibold shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center">
+                            <i class="bi bi-pencil-square mr-1.5"></i>
+                            Edit
+                        </a>
+                        <button onclick="deletePortfolio({{ $p->id }}, '{{ addslashes($p->judul) }}')" class="flex-1 bg-gradient-to-r from-red-500 to-red-600 text-white text-center rounded-lg px-4 py-2.5 text-sm font-semibold shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center">
+                            <i class="bi bi-trash3 mr-1.5"></i>
+                            Hapus
+                        </button>
+                    </div>
                 </div>
             </div>
         @endforeach
     </div>
 
     <!-- Table View -->
-    <div class="portfolio-table" id="tableView">
-        <table class="table table-modern">
-            <thead>
+    <div class="hidden bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200" id="tableView">
+        <table class="w-full text-sm">
+            <thead class="bg-gradient-to-r from-slate-50 to-gray-200">
                 <tr>
-                    <th width="5%">#</th>
-                    <th width="25%">Judul</th>
-                    <th width="35%">Deskripsi</th>
-                    <th width="15%">Gambar</th>
-                    <th width="20%">Aksi</th>
+                    <th class="border-none p-5 font-semibold text-slate-800 uppercase text-xs tracking-wide text-left" width="5%">#</th>
+                    <th class="border-none p-5 font-semibold text-slate-800 uppercase text-xs tracking-wide text-left" width="25%">Judul</th>
+                    <th class="border-none p-5 font-semibold text-slate-800 uppercase text-xs tracking-wide text-left" width="35%">Deskripsi</th>
+                    <th class="border-none p-5 font-semibold text-slate-800 uppercase text-xs tracking-wide text-left" width="15%">Gambar</th>
+                    <th class="border-none p-5 font-semibold text-slate-800 uppercase text-xs tracking-wide text-left" width="20%">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($portofolios as $p)
-                <tr>
-                    <td><strong>{{ $loop->iteration }}</strong></td>
-                    <td>
-                        <div style="font-weight: 600; color: #1e293b;">{{ $p->judul }}</div>
+                <tr class="border-b border-gray-100 transition-colors duration-300 hover:bg-slate-50">
+                    <td class="border-none p-4 align-middle"><strong>{{ $loop->iteration }}</strong></td>
+                    <td class="border-none p-4 align-middle">
+                        <div class="font-semibold text-slate-800">{{ $p->judul }}</div>
                     </td>
-                    <td>
-                        <div style="color: #64748b; line-height: 1.4;">
+                    <td class="border-none p-4 align-middle">
+                        <div class="text-slate-500 leading-relaxed">
                             {{ Str::limit($p->deskripsi, 80) }}
                         </div>
                     </td>
-                    <td>
+                    <td class="border-none p-4 align-middle">
                         @if($p->gambar)
-                            <img src="{{ asset('storage/' . $p->gambar) }}" alt="{{ $p->judul }}" class="table-image">
+                            <img src="{{ asset('storage/' . $p->gambar) }}" alt="{{ $p->judul }}" class="w-15 h-15 rounded-lg object-cover shadow-md">
                         @else
-                            <div style="width: 60px; height: 60px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 12px;">
+                            <div class="w-15 h-15 bg-gray-100 rounded-lg flex items-center justify-center text-slate-500 text-xs">
                                 <i class="bi bi-image"></i>
                             </div>
                         @endif
                     </td>
-                    <td>
-                        <div class="table-actions">
-                            <a href="{{ route('portofolio.edit', $p) }}" class="btn-edit-table">
+                    <td class="border-none p-4 align-middle">
+                        <div class="flex gap-2">
+                            <a href="{{ route('portofolio.edit', $p) }}" class="bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg flex items-center">
                                 <i class="bi bi-pencil-square me-1"></i>
                                 Edit
                             </a>
-                            <button class="btn-delete-table" onclick="deletePortfolio({{ $p->id }}, '{{ $p->judul }}')">
+                            <button class="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg flex items-center" onclick="deletePortfolio({{ $p->id }}, '{{ $p->judul }}')">
                                 <i class="bi bi-trash3 me-1"></i>
                                 Hapus
                             </button>
@@ -591,35 +180,80 @@
     </div>
 
     <!-- Pagination -->
-    <div class="pagination-wrapper">
-        {{ $portofolios->links() }}
+    <div class="flex justify-center mt-8">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-2">
+            {{ $portofolios->links() }}
+        </div>
     </div>
 
 @else
     <!-- Empty State -->
-    <div class="empty-state">
-        <div class="empty-icon">
+    <div class="text-center py-20 px-8 bg-white rounded-3xl shadow-xl border border-gray-200">
+        <div class="text-8xl text-gray-300 mb-6">
             <i class="bi bi-images"></i>
         </div>
-        <h3 class="empty-title">Belum Ada Portofolio</h3>
-        <p class="empty-description">
+        <h3 class="text-2xl font-bold text-slate-600 mb-3">Belum Ada Portofolio</h3>
+        <p class="text-base text-slate-500 mb-8 max-w-lg mx-auto leading-relaxed">
             Mulai showcase karya terbaik perusahaan Anda dengan menambahkan portofolio. 
             Portofolio yang menarik akan membantu membangun kredibilitas dan menarik perhatian calon klien.
         </p>
-        <a href="{{ route('portofolio.create') }}" class="add-btn">
-            <i class="bi bi-plus-circle"></i>
+        <a href="{{ route('portofolio.create') }}" class="inline-flex items-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full px-6 py-3 font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
+            <i class="bi bi-plus-circle mr-2"></i>
             Tambah Portofolio Pertama
         </a>
     </div>
 @endif
 
+<!-- Modern Delete Modal -->
+<div class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] animate-fadeIn justify-center items-center" id="deleteModalOverlay">
+    <div class="bg-white rounded-3xl max-w-md w-11/12 overflow-hidden shadow-2xl animate-slideUp">
+        <div class="bg-gradient-to-r from-red-100 to-red-200 p-8 text-center relative">
+            <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-custom shadow-xl">
+                <i class="bi bi-trash3-fill text-4xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 m-0">Hapus Portofolio?</h3>
+        </div>
+        
+        <div class="p-8">
+            <div class="bg-slate-50 rounded-xl p-4 mb-5 border-l-4 border-red-500">
+                <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Portofolio yang akan dihapus:</div>
+                <div class="text-lg font-semibold text-slate-800 break-words" id="deleteItemName"></div>
+            </div>
+            
+            <div class="flex items-start bg-amber-50 rounded-xl p-4 mb-6 border-l-4 border-amber-500">
+                <i class="bi bi-exclamation-triangle-fill text-amber-500 text-xl mr-3 mt-0.5"></i>
+                <div class="flex-1">
+                    <div class="font-semibold text-amber-900 mb-1 text-sm">Perhatian!</div>
+                    <p class="text-xs text-amber-800 leading-relaxed m-0">
+                        Tindakan ini bersifat permanen dan tidak dapat dibatalkan. 
+                        Semua data dan gambar terkait akan dihapus secara otomatis.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex gap-3">
+                <button class="flex-1 bg-gray-100 text-slate-600 border-none rounded-xl px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:bg-gray-200 hover:-translate-y-0.5 flex items-center justify-center" onclick="closeDeleteModal()">
+                    <i class="bi bi-x-circle mr-2 text-base"></i>
+                    Batal
+                </button>
+                <button class="flex-1 bg-gradient-to-r from-red-500 to-red-600 text-white border-none rounded-xl px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center" onclick="confirmDelete()">
+                    <i class="bi bi-trash3 mr-2 text-base"></i>
+                    Ya, Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Hidden delete form -->
-<form id="deleteForm" method="POST" style="display: none;">
+<form id="deleteForm" method="POST" class="hidden">
     @csrf
     @method('DELETE')
 </form>
 
 <script>
+    let portfolioToDelete = { id: null, title: '' };
+    
     // Toggle between grid and table view
     function toggleView(view) {
         const gridView = document.getElementById('gridView');
@@ -628,85 +262,60 @@
         const tableBtn = document.getElementById('tableBtn');
         
         if (view === 'grid') {
-            gridView.style.display = 'grid';
-            tableView.classList.remove('active');
-            gridBtn.classList.add('active');
-            tableBtn.classList.remove('active');
-            
-            // Animate grid items
-            const cards = gridView.querySelectorAll('.portfolio-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.4s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 50);
-            });
+            gridView.classList.remove('hidden');
+            tableView.classList.add('hidden');
+            gridBtn.classList.add('bg-white', 'text-indigo-500', 'shadow-md');
+            gridBtn.classList.remove('bg-transparent', 'text-slate-500');
+            tableBtn.classList.add('bg-transparent', 'text-slate-500');
+            tableBtn.classList.remove('bg-white', 'text-indigo-500', 'shadow-md');
         } else {
-            gridView.style.display = 'none';
-            tableView.classList.add('active');
-            gridBtn.classList.remove('active');
-            tableBtn.classList.add('active');
-            
-            // Animate table rows
-            const rows = tableView.querySelectorAll('tbody tr');
-            rows.forEach((row, index) => {
-                row.style.opacity = '0';
-                row.style.transform = 'translateX(-20px)';
-                setTimeout(() => {
-                    row.style.transition = 'all 0.3s ease';
-                    row.style.opacity = '1';
-                    row.style.transform = 'translateX(0)';
-                }, index * 50);
-            });
+            gridView.classList.add('hidden');
+            tableView.classList.remove('hidden');
+            tableBtn.classList.add('bg-white', 'text-indigo-500', 'shadow-md');
+            tableBtn.classList.remove('bg-transparent', 'text-slate-500');
+            gridBtn.classList.add('bg-transparent', 'text-slate-500');
+            gridBtn.classList.remove('bg-white', 'text-indigo-500', 'shadow-md');
         }
-        
-        // Save preference to localStorage
-        localStorage.setItem('portfolioView', view);
     }
     
-    // Load saved view preference
-    document.addEventListener('DOMContentLoaded', function() {
-        const savedView = localStorage.getItem('portfolioView') || 'grid';
-        toggleView(savedView);
-        
-        // Animate cards on initial load
-        const cards = document.querySelectorAll('.portfolio-card');
-        cards.forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            
-            setTimeout(() => {
-                card.style.transition = 'all 0.6s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
-    });
-    
-    // Enhanced delete function
+    // Show delete modal
     function deletePortfolio(id, title) {
-        if (confirm(`🗑️ HAPUS PORTOFOLIO\n\n` +
-                   `Apakah Anda yakin ingin menghapus "${title}"?\n\n` +
-                   `⚠️ Tindakan ini tidak dapat dibatalkan!\n\n` +
-                   `Klik OK untuk melanjutkan atau Cancel untuk membatalkan.`)) {
+        portfolioToDelete = { id, title };
+        document.getElementById('deleteItemName').textContent = title;
+        document.getElementById('deleteModalOverlay').classList.remove('hidden');
+        document.getElementById('deleteModalOverlay').classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Close delete modal
+    function closeDeleteModal() {
+        document.getElementById('deleteModalOverlay').classList.add('hidden');
+        document.getElementById('deleteModalOverlay').classList.remove('flex');
+        document.body.style.overflow = 'auto';
+        portfolioToDelete = { id: null, title: '' };
+    }
+    
+    // Confirm delete
+    function confirmDelete() {
+        if (portfolioToDelete.id) {
             const form = document.getElementById('deleteForm');
-            form.action = `/admin/portofolio/${id}`;
+            form.action = `/admin/portofolio/${portfolioToDelete.id}`;
             form.submit();
         }
     }
     
-    // Add hover effects
-    document.querySelectorAll('.portfolio-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
+    // Close modal when clicking overlay
+    document.getElementById('deleteModalOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeDeleteModal();
+        }
+    });
+    
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeDeleteModal();
+        }
     });
 </script>
 @endsection
