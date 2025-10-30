@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Tentang Kami')
-@section('breadcrumb', 'Kelola Konten / Tentang Kami / Edit')
-@section('page-title', 'Edit Tentang Kami')
-@section('page-description', 'Edit informasi perusahaan, visi, misi dan profil lengkap')
+@section('title', 'Edit Layanan')
+@section('breadcrumb', 'Kelola Konten / Layanan / Edit')
+@section('page-title', 'Edit Layanan')
+@section('page-description', 'Perbarui informasi layanan perusahaan Anda')
 
 @section('content')
 <style>
@@ -65,7 +65,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 1rem;
+        padding: 1.5rem;
         background: linear-gradient(135deg, #f8fafc, #e2e8f0);
         border: 2px dashed #cbd5e1;
         border-radius: 1rem;
@@ -80,16 +80,16 @@
     }
     
     .file-input-label.has-file {
-        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-        border-color: #3b82f6;
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        border-color: #10b981;
     }
 </style>
 
 <!-- Back Button -->
 <div class="mb-6 animate-slideUp">
-    <a href="{{ route('tentang.index') }}" class="inline-flex items-center text-slate-600 hover:text-indigo-600 transition-colors duration-300 font-medium">
+    <a href="{{ route('layanan.index') }}" class="inline-flex items-center text-slate-600 hover:text-green-600 transition-colors duration-300 font-medium">
         <i class="bi bi-arrow-left mr-2 text-lg"></i>
-        Kembali ke Tentang Kami
+        Kembali ke Daftar Layanan
     </a>
 </div>
 
@@ -112,7 +112,7 @@
 <!-- Form Card -->
 <div class="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden animate-slideUp">
     <!-- Header -->
-    <div class="bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-700 p-8 relative overflow-hidden">
+    <div class="bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 p-8 relative overflow-hidden">
         <!-- Decorative Elements -->
         <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
         <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24 blur-2xl"></div>
@@ -122,33 +122,37 @@
                 <i class="bi bi-pencil-square"></i>
             </div>
             <div>
-                <h2 class="text-3xl font-bold text-white m-0 mb-1">Edit Tentang Kami</h2>
-                <p class="text-indigo-100 text-sm m-0">Perbarui informasi perusahaan Anda</p>
+                <h2 class="text-3xl font-bold text-white m-0 mb-1">Edit Layanan</h2>
+                <p class="text-green-100 text-sm m-0">Perbarui informasi layanan Anda</p>
             </div>
         </div>
     </div>
 
     <!-- Form Body -->
-    <form action="{{ route('tentang.update') }}" method="POST" enctype="multipart/form-data" class="p-8 md:p-10">
+    <form action="{{ route('layanan.update', $layanan->id) }}" method="POST" enctype="multipart/form-data" class="p-8 md:p-10">
         @csrf
         @method('PUT')
 
         <div class="space-y-6">
-            <!-- Judul -->
+            <!-- Judul Layanan -->
             <div class="form-group">
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
-                    <i class="bi bi-type text-indigo-500 mr-2"></i>
-                    Judul Perusahaan
+                    <i class="bi bi-type text-green-500 mr-2"></i>
+                    Judul Layanan
+                    <span class="text-red-500">*</span>
                 </label>
                 <input 
                     type="text" 
                     name="judul" 
-                    value="{{ old('judul', $tentang->judul ?? '') }}" 
-                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none"
-                    placeholder="Masukkan judul perusahaan..."
+                    id="judul" 
+                    value="{{ old('judul', $layanan->judul) }}" 
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all duration-300 outline-none @error('judul') border-red-500 @enderror"
+                    placeholder="Masukkan judul layanan..."
                     required>
                 @error('judul')
-                    <p class="text-red-500 text-sm mt-2"><i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-2">
+                        <i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}
+                    </p>
                 @enderror
             </div>
 
@@ -156,68 +160,39 @@
             <div class="form-group">
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                     <i class="bi bi-card-text text-blue-500 mr-2"></i>
-                    Deskripsi Perusahaan
+                    Deskripsi Layanan
+                    <span class="text-red-500">*</span>
                 </label>
                 <textarea 
                     name="deskripsi" 
-                    rows="5" 
-                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 outline-none resize-none"
-                    placeholder="Jelaskan tentang perusahaan Anda...">{{ old('deskripsi', $tentang->deskripsi ?? '') }}</textarea>
+                    id="deskripsi" 
+                    rows="6" 
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 outline-none resize-none @error('deskripsi') border-red-500 @enderror"
+                    placeholder="Jelaskan detail layanan Anda..."
+                    required>{{ old('deskripsi', $layanan->deskripsi) }}</textarea>
                 @error('deskripsi')
-                    <p class="text-red-500 text-sm mt-2"><i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-2">
+                        <i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}
+                    </p>
                 @enderror
-            </div>
-
-            <!-- Visi & Misi Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Visi -->
-                <div class="form-group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">
-                        <i class="bi bi-eye text-purple-500 mr-2"></i>
-                        Visi Perusahaan
-                    </label>
-                    <textarea 
-                        name="visi" 
-                        rows="6" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all duration-300 outline-none resize-none"
-                        placeholder="Tuliskan visi perusahaan...">{{ old('visi', $tentang->visi ?? '') }}</textarea>
-                    @error('visi')
-                        <p class="text-red-500 text-sm mt-2"><i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Misi -->
-                <div class="form-group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">
-                        <i class="bi bi-target text-green-500 mr-2"></i>
-                        Misi Perusahaan
-                    </label>
-                    <textarea 
-                        name="misi" 
-                        rows="6" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all duration-300 outline-none resize-none"
-                        placeholder="Tuliskan misi perusahaan...">{{ old('misi', $tentang->misi ?? '') }}</textarea>
-                    @error('misi')
-                        <p class="text-red-500 text-sm mt-2"><i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}</p>
-                    @enderror
-                </div>
             </div>
 
             <!-- Gambar -->
             <div class="form-group">
                 <label class="block text-sm font-semibold text-slate-700 mb-3">
                     <i class="bi bi-image text-amber-500 mr-2"></i>
-                    Gambar Perusahaan
+                    Gambar Layanan
+                    <span class="text-slate-400 text-xs font-normal ml-2">(Opsional)</span>
                 </label>
 
                 <!-- Current Image Preview -->
-                @if($tentang && $tentang->gambar)
+                @if($layanan->gambar)
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-3 font-medium">Gambar Saat Ini:</p>
                         <div class="image-preview-container">
                             <img 
-                                src="{{ asset($tentang->gambar) }}" 
-                                alt="Current Image" 
+                                src="{{ asset('storage/' . $layanan->gambar) }}" 
+                                alt="{{ $layanan->judul }}" 
                                 class="max-w-full h-auto max-h-80 rounded-2xl shadow-lg border-4 border-white object-cover"
                                 id="currentImage">
                             <div class="image-preview-overlay">
@@ -256,16 +231,25 @@
                             id="preview" 
                             class="max-w-full h-auto max-h-80 rounded-2xl shadow-lg border-4 border-white object-cover">
                         <div class="image-preview-overlay">
-                            <span class="text-white text-sm font-medium">
-                                <i class="bi bi-image mr-1"></i> Preview Gambar Baru
-                            </span>
+                            <button 
+                                type="button"
+                                onclick="removeImage()"
+                                class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors">
+                                <i class="bi bi-trash mr-1"></i> Hapus Gambar
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 @error('gambar')
-                    <p class="text-red-500 text-sm mt-2"><i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-2">
+                        <i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}
+                    </p>
                 @enderror
+                <p class="text-xs text-slate-400 mt-2">
+                    <i class="bi bi-info-circle mr-1"></i>
+                    Upload gambar baru jika ingin mengganti gambar yang ada
+                </p>
             </div>
         </div>
 
@@ -275,16 +259,46 @@
                 type="submit" 
                 class="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl px-6 py-3.5 font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center text-base">
                 <i class="bi bi-check-circle mr-2 text-lg"></i>
-                Simpan Perubahan
+                Update Layanan
             </button>
             <a 
-                href="{{ route('tentang.index') }}" 
+                href="{{ route('layanan.index') }}" 
                 class="flex-1 bg-gradient-to-r from-slate-500 to-slate-600 text-white rounded-xl px-6 py-3.5 font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center text-base">
                 <i class="bi bi-x-circle mr-2 text-lg"></i>
                 Batal
             </a>
         </div>
     </form>
+</div>
+
+<!-- Info Box -->
+<div class="mt-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 animate-slideUp">
+    <div class="flex items-start">
+        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center text-white mr-4 flex-shrink-0">
+            <i class="bi bi-info-circle text-lg"></i>
+        </div>
+        <div>
+            <h3 class="text-lg font-bold text-slate-800 mb-2">Informasi Penting</h3>
+            <ul class="space-y-2 text-sm text-slate-600">
+                <li class="flex items-start">
+                    <i class="bi bi-dot text-2xl text-green-500 -mt-1 -ml-1"></i>
+                    <span>Kosongkan field gambar jika tidak ingin mengubah gambar yang sudah ada</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="bi bi-dot text-2xl text-green-500 -mt-1 -ml-1"></i>
+                    <span>Gambar baru akan menggantikan gambar lama secara otomatis</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="bi bi-dot text-2xl text-green-500 -mt-1 -ml-1"></i>
+                    <span>Pastikan judul dan deskripsi tetap informatif dan menarik</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="bi bi-dot text-2xl text-green-500 -mt-1 -ml-1"></i>
+                    <span>Gunakan gambar berkualitas tinggi untuk hasil yang maksimal</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -296,6 +310,20 @@
         
         if (input.files && input.files[0]) {
             const file = input.files[0];
+            
+            // Validate file size (2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('⚠️ Ukuran file terlalu besar! Maksimal 2MB.');
+                input.value = '';
+                return;
+            }
+            
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('⚠️ File harus berupa gambar!');
+                input.value = '';
+                return;
+            }
             
             // Update label
             fileName.textContent = file.name;
@@ -321,6 +349,42 @@
         }
     }
     
+    function removeImage() {
+        const input = document.getElementById('gambar');
+        const fileLabel = document.getElementById('fileLabel');
+        const fileName = document.getElementById('fileName');
+        const newImagePreview = document.getElementById('newImagePreview');
+        
+        input.value = '';
+        fileName.textContent = 'Klik untuk upload gambar baru';
+        fileLabel.classList.remove('has-file');
+        newImagePreview.classList.add('hidden');
+    }
+    
+    // Character counter for textarea
+    const textarea = document.getElementById('deskripsi');
+    textarea.addEventListener('input', function() {
+        const length = this.value.length;
+        const parent = this.parentElement;
+        
+        let counter = parent.querySelector('.char-counter');
+        if (!counter) {
+            counter = document.createElement('p');
+            counter.className = 'char-counter text-xs text-slate-400 mt-2';
+            parent.appendChild(counter);
+        }
+        
+        counter.innerHTML = `<i class="bi bi-pencil mr-1"></i>${length} karakter`;
+        
+        if (length < 50) {
+            counter.classList.add('text-amber-500');
+            counter.classList.remove('text-green-500');
+        } else {
+            counter.classList.add('text-green-500');
+            counter.classList.remove('text-amber-500');
+        }
+    });
+    
     // Add animation on page load
     document.addEventListener('DOMContentLoaded', function() {
         const formGroups = document.querySelectorAll('.form-group');
@@ -334,6 +398,26 @@
                 group.style.transform = 'translateY(0)';
             }, 100 + (index * 100));
         });
+    });
+    
+    // Form validation before submit
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const judul = document.getElementById('judul').value.trim();
+        const deskripsi = document.getElementById('deskripsi').value.trim();
+        
+        if (judul.length < 3) {
+            e.preventDefault();
+            alert('⚠️ Judul layanan minimal 3 karakter!');
+            document.getElementById('judul').focus();
+            return;
+        }
+        
+        if (deskripsi.length < 20) {
+            e.preventDefault();
+            alert('⚠️ Deskripsi layanan minimal 20 karakter!');
+            document.getElementById('deskripsi').focus();
+            return;
+        }
     });
 </script>
 

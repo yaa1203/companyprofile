@@ -7,421 +7,156 @@
 
 @section('content')
 <style>
-    .contact-container {
-        background: white;
-        border-radius: 20px;
-        padding: 32px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: 1px solid #e2e8f0;
-        position: relative;
-        overflow: hidden;
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
     
-    .contact-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-    }
-    
-    .contact-header {
-        display: flex;
-        align-items: center;
-        justify-content: between;
-        margin-bottom: 32px;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-    
-    .contact-title {
-        display: flex;
-        align-items: center;
-        font-size: 24px;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 0;
-    }
-    
-    .contact-title i {
-        margin-right: 12px;
-        color: #ef4444;
-        font-size: 28px;
-    }
-    
-    .contact-stats {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .success-alert {
-        background: linear-gradient(135deg, #10b981, #059669);
-        color: white;
-        padding: 16px 24px;
-        border-radius: 12px;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 500;
-        animation: slideIn 0.5s ease-out;
+    @keyframes slideUp {
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
     
     @keyframes slideIn {
         from {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: translateX(-20px);
         }
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
     }
     
-    .contacts-table {
-        background: white;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        border: 1px solid #e2e8f0;
+    .animate-fadeIn {
+        animation: fadeIn 0.5s ease;
     }
     
-    .table-header {
-        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-        border-bottom: 2px solid #e2e8f0;
+    .animate-slideUp {
+        animation: slideUp 0.6s ease;
     }
     
-    .table-header th {
-        padding: 20px 16px;
-        font-weight: 700;
-        color: #475569;
-        text-align: left;
-        border-right: 1px solid #e2e8f0;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+    .animate-slideIn {
+        animation: slideIn 0.5s ease;
     }
     
-    .table-header th:last-child {
-        border-right: none;
-        text-align: center;
-    }
-    
-    .table-row {
-        border-bottom: 1px solid #f1f5f9;
-        transition: all 0.3s ease;
-    }
-    
-    .table-row:hover {
-        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-        transform: scale(1.01);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    }
-    
-    .table-row:last-child {
-        border-bottom: none;
-    }
-    
-    .table-cell {
-        padding: 20px 16px;
-        color: #475569;
-        border-right: 1px solid #f1f5f9;
-        vertical-align: middle;
-    }
-    
-    .table-cell:last-child {
-        border-right: none;
-        text-align: center;
-    }
-    
-    .contact-name {
-        font-weight: 600;
-        color: #1e293b;
+    .delete-modal-overlay.active {
         display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .contact-name::before {
-        content: '';
-        width: 8px;
-        height: 8px;
-        background: linear-gradient(135deg, #10b981, #059669);
-        border-radius: 50%;
-        display: inline-block;
-    }
-    
-    .contact-email {
-        color: #6366f1;
-        font-weight: 500;
-    }
-    
-    .contact-message {
-        color: #64748b;
-        line-height: 1.5;
-        max-width: 300px;
-    }
-    
-    .contact-date {
-        color: #64748b;
-        font-size: 13px;
-        font-weight: 500;
-    }
-    
-    .action-buttons {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .btn-view {
-        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 13px;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    
-    .btn-view:hover {
-        background: linear-gradient(135deg, #1d4ed8, #1e40af);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        color: white;
-    }
-    
-    .btn-delete {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: none;
-        font-weight: 500;
-        font-size: 13px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    
-    .btn-delete:hover {
-        background: linear-gradient(135deg, #dc2626, #b91c1c);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-    }
-    
-    .empty-state {
-        text-align: center;
-        padding: 60px 20px;
-        color: #64748b;
-    }
-    
-    .empty-state i {
-        font-size: 64px;
-        color: #cbd5e1;
-        margin-bottom: 16px;
-        display: block;
-    }
-    
-    .empty-state h3 {
-        font-size: 20px;
-        font-weight: 600;
-        color: #475569;
-        margin-bottom: 8px;
-    }
-    
-    .empty-state p {
-        font-size: 16px;
-        color: #64748b;
-        margin: 0;
-    }
-    
-    .pagination-wrapper {
-        margin-top: 32px;
-        display: flex;
-        justify-content: center;
-    }
-    
-    .filter-section {
-        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-        border-radius: 16px;
-        padding: 24px;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-    
-    .filter-section .form-control {
-        border: 2px solid #e2e8f0;
-        border-radius: 10px;
-        padding: 10px 16px;
-        font-size: 14px;
-        transition: all 0.3s ease;
-        background: white;
-    }
-    
-    .filter-section .form-control:focus {
-        border-color: #6366f1;
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        outline: none;
-    }
-    
-    .contact-number {
-        background: #f1f5f9;
-        color: #475569;
-        font-weight: 600;
-        font-size: 12px;
-        padding: 4px 8px;
-        border-radius: 6px;
-        display: inline-block;
-        min-width: 24px;
-        text-align: center;
-    }
-    
-    @media (max-width: 768px) {
-        .contact-container {
-            padding: 20px;
-            border-radius: 16px;
-        }
-        
-        .contact-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        
-        .contact-title {
-            font-size: 20px;
-        }
-        
-        .contacts-table {
-            overflow-x: auto;
-        }
-        
-        .table-cell {
-            padding: 16px 12px;
-            white-space: nowrap;
-        }
-        
-        .contact-message {
-            max-width: 200px;
-        }
-        
-        .action-buttons {
-            flex-direction: column;
-            gap: 4px;
-        }
     }
 </style>
 
-<div class="contact-container">
-    <!-- Header -->
-    <div class="contact-header">
-        <h2 class="contact-title">
+@if(session('success'))
+    <div class="bg-gradient-to-r from-green-100 to-green-200 text-green-800 rounded-xl border-none p-4 mb-6 border-l-4 border-green-500 animate-slideIn">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        {{ session('success') }}
+    </div>
+@endif
+
+<!-- Header Section -->
+<div class="bg-white rounded-2xl p-6 mb-8 shadow-lg border border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4 relative overflow-hidden animate-slideUp">
+    <!-- Decorative Top Border -->
+    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-rose-600"></div>
+    
+    <div class="flex items-center">
+        <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-rose-600 rounded-xl flex items-center justify-center text-white text-xl mr-4 shadow-lg">
             <i class="bi bi-envelope-fill"></i>
-            Pesan Masuk
-        </h2>
-        <div class="contact-stats">
-            <i class="bi bi-collection"></i>
-            Total: {{ $kontaks->total() }} pesan
+        </div>
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 m-0">Pesan Masuk</h3>
+            <p class="text-sm text-slate-500 m-0">Kelola semua pesan dari pengunjung</p>
         </div>
     </div>
+    <div class="bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-full px-5 py-2.5 font-semibold flex items-center gap-2 shadow-md">
+        <i class="bi bi-collection"></i>
+        Total: {{ $kontaks->total() }} pesan
+    </div>
+</div>
 
-    <!-- Success Alert -->
-    @if(session('success'))
-        <div class="success-alert">
-            <i class="bi bi-check-circle-fill"></i>
-            {{ session('success') }}
+<!-- Filter Section -->
+<div class="bg-gradient-to-br from-slate-50 to-gray-100 rounded-2xl p-6 mb-6 border border-gray-200 animate-slideUp">
+    <div class="flex flex-col md:flex-row items-center gap-4">
+        <div class="flex items-center gap-2">
+            <i class="bi bi-funnel-fill text-indigo-500 text-lg"></i>
+            <span class="font-semibold text-slate-700">Filter:</span>
         </div>
-    @endif
-
-    <!-- Filter Section -->
-    <div class="filter-section">
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="bi bi-funnel-fill" style="color: #6366f1;"></i>
-            <span style="font-weight: 600; color: #475569;">Filter:</span>
-        </div>
-        <input type="text" class="form-control" placeholder="Cari berdasarkan nama atau email..." style="width: 300px;">
-        <select class="form-control" style="width: 150px;">
+        <input 
+            type="text" 
+            id="searchInput"
+            class="flex-1 px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none bg-white" 
+            placeholder="Cari berdasarkan nama atau email...">
+        <select class="px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none bg-white font-medium">
             <option>Semua waktu</option>
             <option>Hari ini</option>
             <option>Minggu ini</option>
             <option>Bulan ini</option>
         </select>
     </div>
+</div>
 
-    <!-- Table -->
-    <div class="contacts-table">
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead class="table-header">
+<!-- Table View -->
+<div class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 animate-slideUp" id="tableView">
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gradient-to-r from-slate-50 to-gray-100 border-b-2 border-gray-200">
                 <tr>
-                    <th style="width: 60px;">#</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Pesan</th>
-                    <th style="width: 140px;">Tanggal</th>
-                    <th style="width: 150px;">Aksi</th>
+                    <th class="px-6 py-4 text-left font-bold text-slate-700 uppercase text-xs tracking-wide">#</th>
+                    <th class="px-6 py-4 text-left font-bold text-slate-700 uppercase text-xs tracking-wide">Nama</th>
+                    <th class="px-6 py-4 text-left font-bold text-slate-700 uppercase text-xs tracking-wide">Email</th>
+                    <th class="px-6 py-4 text-left font-bold text-slate-700 uppercase text-xs tracking-wide">Pesan</th>
+                    <th class="px-6 py-4 text-left font-bold text-slate-700 uppercase text-xs tracking-wide">Tanggal</th>
+                    <th class="px-6 py-4 text-center font-bold text-slate-700 uppercase text-xs tracking-wide">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($kontaks as $kontak)
-                    <tr class="table-row">
-                        <td class="table-cell">
-                            <span class="contact-number">{{ $loop->iteration + ($kontaks->currentPage() - 1) * $kontaks->perPage() }}</span>
+                    <tr class="border-b border-gray-100 transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-50 hover:to-gray-50 table-row">
+                        <td class="px-6 py-4">
+                            <span class="bg-slate-100 text-slate-600 font-semibold text-xs px-2.5 py-1 rounded-md inline-block min-w-[32px] text-center">
+                                {{ $loop->iteration + ($kontaks->currentPage() - 1) * $kontaks->perPage() }}
+                            </span>
                         </td>
-                        <td class="table-cell">
-                            <div class="contact-name">{{ $kontak->name }}</div>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2 font-semibold text-slate-800 contact-name">
+                                <span class="w-2 h-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full"></span>
+                                {{ $kontak->name }}
+                            </div>
                         </td>
-                        <td class="table-cell">
-                            <div class="contact-email">{{ $kontak->email }}</div>
+                        <td class="px-6 py-4">
+                            <div class="text-indigo-600 font-medium contact-email">{{ $kontak->email }}</div>
                         </td>
-                        <td class="table-cell">
-                            <div class="contact-message">{{ Str::limit($kontak->message, 80) }}</div>
+                        <td class="px-6 py-4">
+                            <div class="text-slate-600 max-w-xs">{{ Str::limit($kontak->message, 80) }}</div>
                         </td>
-                        <td class="table-cell">
-                            <div class="contact-date">{{ $kontak->created_at->format('d M Y') }}</div>
-                            <div class="contact-date" style="font-size: 11px; opacity: 0.7;">{{ $kontak->created_at->format('H:i') }} WIB</div>
+                        <td class="px-6 py-4">
+                            <div class="text-slate-600 text-sm font-medium">{{ $kontak->created_at->format('d M Y') }}</div>
+                            <div class="text-slate-400 text-xs">{{ $kontak->created_at->format('H:i') }} WIB</div>
                         </td>
-                        <td class="table-cell">
-                            <div class="action-buttons">
-                                <a href="{{ route('kontak.show', $kontak) }}" class="btn-view">
+                        <td class="px-6 py-4">
+                            <div class="flex gap-2 justify-center">
+                                <a href="{{ route('kontak.show', $kontak) }}" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-2 rounded-lg text-xs font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-1">
                                     <i class="bi bi-eye"></i>
                                     Lihat
                                 </a>
-                                <form action="{{ route('kontak.destroy', $kontak) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus pesan ini?')">
-                                        <i class="bi bi-trash"></i>
-                                        Hapus
-                                    </button>
-                                </form>
+                                <button onclick="deleteContact({{ $kontak->id }}, '{{ addslashes($kontak->name) }}')" class="bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-2 rounded-lg text-xs font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-1">
+                                    <i class="bi bi-trash"></i>
+                                    Hapus
+                                </button>
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="table-cell">
-                            <div class="empty-state">
-                                <i class="bi bi-inbox"></i>
-                                <h3>Belum Ada Pesan Masuk</h3>
-                                <p>Belum ada pesan dari pengunjung website. Pesan akan muncul di sini ketika ada yang menghubungi Anda.</p>
+                        <td colspan="6" class="px-6 py-12">
+                            <div class="text-center">
+                                <i class="bi bi-inbox text-6xl text-gray-300 mb-4"></i>
+                                <h3 class="text-xl font-semibold text-slate-600 mb-2">Belum Ada Pesan Masuk</h3>
+                                <p class="text-slate-500">Belum ada pesan dari pengunjung website. Pesan akan muncul di sini ketika ada yang menghubungi Anda.</p>
                             </div>
                         </td>
                     </tr>
@@ -429,16 +164,178 @@
             </tbody>
         </table>
     </div>
-
-    <!-- Pagination -->
-    @if($kontaks->hasPages())
-        <div class="pagination-wrapper">
-            {{ $kontaks->links() }}
-        </div>
-    @endif
 </div>
 
+<!-- Card View -->
+<div class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slideUp" id="cardView">
+    @forelse($kontaks as $kontak)
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl table-row">
+            <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full"></span>
+                    <span class="font-bold text-slate-800 contact-name">{{ $kontak->name }}</span>
+                </div>
+                <span class="bg-slate-100 text-slate-600 font-semibold text-xs px-2.5 py-1 rounded-md">
+                    #{{ $loop->iteration + ($kontaks->currentPage() - 1) * $kontaks->perPage() }}
+                </span>
+            </div>
+            
+            <div class="mb-4">
+                <div class="flex items-center gap-2 text-sm mb-2">
+                    <i class="bi bi-envelope text-indigo-500"></i>
+                    <span class="text-indigo-600 font-medium contact-email">{{ $kontak->email }}</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-slate-500">
+                    <i class="bi bi-calendar3"></i>
+                    <span>{{ $kontak->created_at->format('d M Y, H:i') }} WIB</span>
+                </div>
+            </div>
+            
+            <div class="bg-slate-50 rounded-xl p-3 mb-4">
+                <p class="text-slate-600 text-sm line-clamp-3">{{ $kontak->message }}</p>
+            </div>
+            
+            <div class="flex gap-2">
+                <a href="{{ route('kontak.show', $kontak) }}" class="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                    <i class="bi bi-eye mr-1"></i> Lihat
+                </a>
+                <button onclick="deleteContact({{ $kontak->id }}, '{{ addslashes($kontak->name) }}')" class="flex-1 bg-gradient-to-r from-red-500 to-red-600 text-white text-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                    <i class="bi bi-trash mr-1"></i> Hapus
+                </button>
+            </div>
+        </div>
+    @empty
+        <div class="col-span-full text-center py-12">
+            <i class="bi bi-inbox text-6xl text-gray-300 mb-4"></i>
+            <h3 class="text-xl font-semibold text-slate-600 mb-2">Belum Ada Pesan Masuk</h3>
+            <p class="text-slate-500">Belum ada pesan dari pengunjung website.</p>
+        </div>
+    @endforelse
+</div>
+
+<!-- Pagination -->
+@if($kontaks->hasPages())
+    <div class="flex justify-center mt-8">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-2">
+            {{ $kontaks->links() }}
+        </div>
+    </div>
+@endif
+
+<!-- Modern Delete Modal -->
+<div class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] animate-fadeIn justify-center items-center" id="deleteModalOverlay">
+    <div class="bg-white rounded-3xl max-w-md w-11/12 overflow-hidden shadow-2xl animate-slideUp">
+        <div class="bg-gradient-to-r from-red-100 to-red-200 p-8 text-center relative">
+            <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                <i class="bi bi-trash3-fill text-4xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 m-0">Hapus Pesan?</h3>
+        </div>
+        
+        <div class="p-8">
+            <div class="bg-slate-50 rounded-xl p-4 mb-5 border-l-4 border-red-500">
+                <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Pesan dari:</div>
+                <div class="text-lg font-semibold text-slate-800 break-words" id="deleteItemName"></div>
+            </div>
+            
+            <div class="flex items-start bg-amber-50 rounded-xl p-4 mb-6 border-l-4 border-amber-500">
+                <i class="bi bi-exclamation-triangle-fill text-amber-500 text-xl mr-3 mt-0.5"></i>
+                <div class="flex-1">
+                    <div class="font-semibold text-amber-900 mb-1 text-sm">Perhatian!</div>
+                    <p class="text-xs text-amber-800 leading-relaxed m-0">
+                        Tindakan ini bersifat permanen dan tidak dapat dibatalkan. 
+                        Pesan akan dihapus secara otomatis dari database.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex gap-3">
+                <button class="flex-1 bg-gray-100 text-slate-600 border-none rounded-xl px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:bg-gray-200 hover:-translate-y-0.5 flex items-center justify-center" onclick="closeDeleteModal()">
+                    <i class="bi bi-x-circle mr-2 text-base"></i>
+                    Batal
+                </button>
+                <button class="flex-1 bg-gradient-to-r from-red-500 to-red-600 text-white border-none rounded-xl px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center" onclick="confirmDelete()">
+                    <i class="bi bi-trash3 mr-2 text-base"></i>
+                    Ya, Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden delete form -->
+<form id="deleteForm" method="POST" class="hidden">
+    @csrf
+    @method('DELETE')
+</form>
+
 <script>
+    let contactToDelete = { id: null, name: '' };
+    
+    // Toggle between table and card view
+    function toggleView(view) {
+        const tableView = document.getElementById('tableView');
+        const cardView = document.getElementById('cardView');
+        const tableBtn = document.getElementById('tableBtn');
+        const cardBtn = document.getElementById('cardBtn');
+        
+        if (view === 'table') {
+            tableView.classList.remove('hidden');
+            cardView.classList.add('hidden');
+            tableBtn.classList.add('bg-white', 'text-indigo-500', 'shadow-md');
+            tableBtn.classList.remove('bg-transparent', 'text-slate-500');
+            cardBtn.classList.add('bg-transparent', 'text-slate-500');
+            cardBtn.classList.remove('bg-white', 'text-indigo-500', 'shadow-md');
+        } else {
+            tableView.classList.add('hidden');
+            cardView.classList.remove('hidden');
+            cardBtn.classList.add('bg-white', 'text-indigo-500', 'shadow-md');
+            cardBtn.classList.remove('bg-transparent', 'text-slate-500');
+            tableBtn.classList.add('bg-transparent', 'text-slate-500');
+            tableBtn.classList.remove('bg-white', 'text-indigo-500', 'shadow-md');
+        }
+    }
+    
+    // Show delete modal
+    function deleteContact(id, name) {
+        contactToDelete = { id, name };
+        document.getElementById('deleteItemName').textContent = name;
+        document.getElementById('deleteModalOverlay').classList.remove('hidden');
+        document.getElementById('deleteModalOverlay').classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Close delete modal
+    function closeDeleteModal() {
+        document.getElementById('deleteModalOverlay').classList.add('hidden');
+        document.getElementById('deleteModalOverlay').classList.remove('flex');
+        document.body.style.overflow = 'auto';
+        contactToDelete = { id: null, name: '' };
+    }
+    
+    // Confirm delete
+    function confirmDelete() {
+        if (contactToDelete.id) {
+            const form = document.getElementById('deleteForm');
+            form.action = `/admin/kontak/${contactToDelete.id}`;
+            form.submit();
+        }
+    }
+    
+    // Close modal when clicking overlay
+    document.getElementById('deleteModalOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeDeleteModal();
+        }
+    });
+    
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeDeleteModal();
+        }
+    });
+    
     // Add animation on page load
     document.addEventListener('DOMContentLoaded', function() {
         const rows = document.querySelectorAll('.table-row');
@@ -453,9 +350,9 @@
             }, index * 50);
         });
     });
-
-    // Simple search functionality (you can enhance this with AJAX)
-    document.querySelector('input[placeholder*="Cari"]').addEventListener('input', function(e) {
+    
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function(e) {
         const searchTerm = e.target.value.toLowerCase();
         const rows = document.querySelectorAll('.table-row');
         
@@ -470,16 +367,6 @@
             }
         });
     });
-
-    // Confirm delete with better styling
-    document.querySelectorAll('.btn-delete').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (confirm('Apakah Anda yakin ingin menghapus pesan ini?\n\nPeringatan: Tindakan ini tidak dapat dibatalkan!')) {
-                this.closest('form').submit();
-            }
-        });
-    });
 </script>
+
 @endsection

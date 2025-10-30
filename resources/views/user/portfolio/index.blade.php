@@ -53,18 +53,18 @@
     </section>
     
     <!-- View Toggle Section -->
-    <section class="py-6 bg-white sticky top-0 z-10 shadow-sm">
+    <section class="py-6 bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200">
         <div class="container mx-auto px-6">
             <div class="flex justify-center">
-                <div class="inline-flex rounded-lg shadow-sm" role="group">
-                    <button type="button" id="gridViewBtn" class="view-toggle-btn px-6 py-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-                        <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="inline-flex rounded-xl shadow-lg bg-slate-100 p-1" role="group">
+                    <button type="button" id="gridViewBtn" class="view-toggle-btn active px-6 py-3 text-sm font-semibold rounded-lg transition-all duration-300 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                         </svg>
                         Grid View
                     </button>
-                    <button type="button" id="listViewBtn" class="view-toggle-btn px-6 py-3 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-                        <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button type="button" id="listViewBtn" class="view-toggle-btn px-6 py-3 text-sm font-semibold rounded-lg transition-all duration-300 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                         List View
@@ -75,74 +75,142 @@
     </section>
     
     <!-- Portfolio Grid -->
-    <section id="portfolio-grid" class="py-20 bg-white">
+    <section id="portfolio-grid" class="py-20 bg-gradient-to-b from-white to-slate-50">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                    Karya <span class="text-indigo-600">Terbaik Kami</span>
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Dari konsep hingga implementasi, setiap proyek adalah cerminan komitmen kami terhadap kualitas dan inovasi
-                </p>
-            </div>
-            
             <!-- Grid Container -->
-            <div id="portfolioContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div id="portfolioContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-12">
                 @forelse($portofolios as $index => $item)
                     <!-- Grid Card -->
-                    <div class="portfolio-card group bg-white rounded-2xl border border-gray-100 hover:border-indigo-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
+                    <a href="{{ route('portfolio.show', $item->id) }}" class="portfolio-card group bg-white rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
                         <!-- Portfolio Image -->
-                        <div class="relative overflow-hidden">
+                        <div class="relative overflow-hidden aspect-video">
                             @if($item->gambar)
                                 <img src="{{ asset('storage/' . $item->gambar) }}" 
                                      alt="{{ $item->judul }}"
-                                     class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             @else
-                                <div class="w-full h-48 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center">
-                                    <!-- Image Placeholder Icon -->
+                                <div class="w-full h-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center">
                                     <svg class="w-16 h-16 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-5 4 4 4-6 4 7H4z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
                             @endif
+                            <!-- Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             <!-- Portfolio Number Badge -->
                             <div class="absolute top-4 left-4">
-                                <span class="bg-white/90 backdrop-blur-sm text-indigo-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-lg">
-                                    {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                                <span class="bg-white/95 backdrop-blur-md text-indigo-600 w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shadow-xl border-2 border-indigo-200">
+                                    {{ str_pad(($portofolios->currentPage() - 1) * $portofolios->perPage() + $index + 1, 2, '0', STR_PAD_LEFT) }}
                                 </span>
                             </div>
                         </div>
                         <!-- Portfolio Content -->
-                        <div class="p-8">
-                            <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors duration-300 line-clamp-2">
                                 {{ $item->judul }}
                             </h3>
-                            <p class="text-gray-600 leading-relaxed">
+                            <p class="text-slate-600 leading-relaxed text-sm line-clamp-3 mb-4">
                                 {{ $item->deskripsi }}
                             </p>
+                            <!-- Read More Link -->
+                            <div class="pt-4 border-t border-slate-100">
+                                <span class="inline-flex items-center text-indigo-600 font-semibold text-sm group-hover:gap-2 transition-all duration-300">
+                                    Lihat Detail
+                                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <!-- Empty State -->
-                    <div class="col-span-full text-center py-16">
-                        <div class="w-24 h-24 bg-gradient-to-r from-gray-300 to-gray-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-5 4 4 4-6 4 7H4z"/>
-                            </svg>
+                    <div class="col-span-full text-center py-20">
+                        <div class="inline-block mb-6">
+                            <div class="w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-3xl flex items-center justify-center mx-auto shadow-lg">
+                                <svg class="w-16 h-16 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Belum Ada Portfolio</h3>
-                        <p class="text-gray-600 max-w-md mx-auto">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Belum Ada Portfolio</h3>
+                        <p class="text-slate-600 max-w-md mx-auto mb-8 leading-relaxed">
                             Portfolio kami sedang dalam tahap pengembangan. Hubungi kami untuk melihat contoh pekerjaan dan solusi yang kami tawarkan.
                         </p>
+                        <a href="/contact" class="inline-flex items-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                            Hubungi Kami
+                        </a>
                     </div>
                 @endforelse
             </div>
+
+            <!-- Pagination -->
+            @if($portofolios->hasPages())
+            <div class="flex justify-center mt-12">
+                <nav class="inline-flex rounded-xl shadow-lg bg-white border-2 border-slate-100 overflow-hidden">
+                    {{-- Previous Button --}}
+                    @if ($portofolios->onFirstPage())
+                        <span class="px-4 py-3 text-slate-400 bg-slate-50 cursor-not-allowed flex items-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </span>
+                    @else
+                        <a href="{{ $portofolios->previousPageUrl() }}" class="px-4 py-3 text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors flex items-center border-r border-slate-100">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </a>
+                    @endif
+
+                    {{-- Page Numbers --}}
+                    @foreach ($portofolios->getUrlRange(1, $portofolios->lastPage()) as $page => $url)
+                        @if ($page == $portofolios->currentPage())
+                            <span class="px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold border-r border-slate-100">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $url }}" class="px-5 py-3 text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors font-medium border-r border-slate-100">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Button --}}
+                    @if ($portofolios->hasMorePages())
+                        <a href="{{ $portofolios->nextPageUrl() }}" class="px-4 py-3 text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors flex items-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    @else
+                        <span class="px-4 py-3 text-slate-400 bg-slate-50 cursor-not-allowed flex items-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    @endif
+                </nav>
+            </div>
+
+            <!-- Pagination Info -->
+            <div class="text-center mt-6">
+                <p class="text-sm text-slate-600">
+                    Showing <span class="font-semibold text-indigo-600">{{ $portofolios->firstItem() }}</span> 
+                    to <span class="font-semibold text-indigo-600">{{ $portofolios->lastItem() }}</span> 
+                    of <span class="font-semibold text-indigo-600">{{ $portofolios->total() }}</span> portfolios
+                </p>
+            </div>
+            @endif
         </div>
     </section>
     
     <style>
         @keyframes blob {
-            0% {
+            0%, 100% {
                 transform: translate(0px, 0px) scale(1);
             }
             33% {
@@ -151,10 +219,24 @@
             66% {
                 transform: translate(-20px, 20px) scale(0.9);
             }
-            100% {
-                transform: translate(0px, 0px) scale(1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
+        
         .animate-blob {
             animation: blob 7s infinite;
         }
@@ -163,6 +245,33 @@
         }
         .animation-delay-4000 {
             animation-delay: 4s;
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease-out;
+        }
+        .animate-slideUp {
+            animation: slideUp 0.8s ease-out;
+        }
+        .animation-delay-200 {
+            animation-delay: 0.2s;
+            animation-fill-mode: backwards;
+        }
+        .animation-delay-400 {
+            animation-delay: 0.4s;
+            animation-fill-mode: backwards;
+        }
+        
+        /* View Toggle Button Styles */
+        .view-toggle-btn {
+            color: #64748b;
+            background: transparent;
+            border: none;
+        }
+        
+        .view-toggle-btn.active {
+            background: white;
+            color: #4f46e5;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         
         /* List View Styles */
@@ -177,17 +286,20 @@
             display: flex;
             flex-direction: row;
             height: auto;
-            min-height: 200px;
-            border-radius: 1rem;
+            border-radius: 1.5rem;
             overflow: hidden;
         }
         
         .list-view .portfolio-card .relative {
-            width: 280px;
+            width: 320px;
             height: 100%;
+            min-height: 240px;
             flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
+        }
+        
+        .list-view .portfolio-card .aspect-video {
+            aspect-ratio: auto;
+            height: 100%;
         }
         
         .list-view .portfolio-card img,
@@ -197,58 +309,68 @@
             object-fit: cover;
         }
         
-        .list-view .portfolio-card .p-8 {
+        .list-view .portfolio-card .p-6 {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 2rem;
         }
         
-        .list-view .portfolio-card .text-2xl {
+        .list-view .portfolio-card .text-xl {
             font-size: 1.5rem;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .list-view .portfolio-card .text-sm {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .list-view .portfolio-card .line-clamp-3 {
+            -webkit-line-clamp: 4;
         }
         
         .list-view .portfolio-card .absolute {
             top: 1rem;
             left: 1rem;
-            z-index: 10;
         }
         
-        .list-view .portfolio-card .absolute span {
-            width: 2rem;
-            height: 2rem;
-            font-size: 0.875rem;
-        }
-        
-        .list-view .portfolio-card .text-gray-600 {
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-        
-        /* Responsive adjustments for list view */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .list-view .portfolio-card {
                 flex-direction: column;
-                height: auto;
             }
             
             .list-view .portfolio-card .relative {
                 width: 100%;
                 height: 200px;
+                min-height: 200px;
             }
             
-            .list-view .portfolio-card .p-8 {
-                padding: 1rem;
+            .list-view .portfolio-card .aspect-video {
+                aspect-ratio: 16/9;
+                height: auto;
+            }
+            
+            .list-view .portfolio-card .p-6 {
+                padding: 1.5rem;
             }
         }
         
-        /* Active button style */
-        .view-toggle-btn.active {
-            background-color: #4F46E5;
-            color: white;
-            border-color: #4F46E5;
+        /* Line clamp utilities */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     </style>
     
@@ -257,9 +379,6 @@
             const gridViewBtn = document.getElementById('gridViewBtn');
             const listViewBtn = document.getElementById('listViewBtn');
             const portfolioContainer = document.getElementById('portfolioContainer');
-            
-            // Set initial active button
-            gridViewBtn.classList.add('active');
             
             // Toggle to grid view
             gridViewBtn.addEventListener('click', function() {
@@ -281,12 +400,27 @@
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
+                        const offset = 80;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
                         });
                     }
                 });
+            });
+            
+            // Add staggered animation on load
+            const cards = document.querySelectorAll('.portfolio-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
             });
         });
     </script>
