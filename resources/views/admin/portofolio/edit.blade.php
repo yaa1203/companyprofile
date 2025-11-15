@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Edit Portofolio')
-@section('breadcrumb', 'Kelola Konten / Portofolio / Edit')
 @section('page-title', 'Edit Portofolio')
 @section('page-description', 'Perbarui portofolio dan karya perusahaan Anda')
 

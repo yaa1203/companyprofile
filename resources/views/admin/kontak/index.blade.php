@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Daftar Kontak')
-@section('breadcrumb', 'Kontak')
 @section('page-title', 'Kelola Pesan Kontak')
 @section('page-description', 'Lihat dan kelola semua pesan masuk dari pengunjung website')
 

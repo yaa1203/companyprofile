@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Tentang Kami')
-@section('breadcrumb', 'Kelola Konten / Tentang Kami')
 @section('page-title', 'Tentang Kami')
 @section('page-description', 'Kelola informasi perusahaan, visi, misi dan profil lengkap')
 
@@ -52,6 +51,20 @@
     </div>
 @endif
 
+@if(session('info'))
+    <div class="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 rounded-xl border-none p-4 mb-6 border-l-4 border-blue-500 animate-fadeIn">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        {{ session('info') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="bg-gradient-to-r from-red-100 to-red-200 text-red-800 rounded-xl border-none p-4 mb-6 border-l-4 border-red-500 animate-fadeIn">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ session('error') }}
+    </div>
+@endif
+
 <div class="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden animate-slideUp">
     @if($tentang)
         <!-- Header Section -->
@@ -70,6 +83,7 @@
                         <p class="text-indigo-100 text-sm m-0">Profil & Informasi Perusahaan</p>
                     </div>
                 </div>
+                <!-- Tombol Edit - Hanya muncul jika data sudah ada -->
                 <a href="{{ route('tentang.edit') }}" class="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white rounded-full px-6 py-3 font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center border border-white/30">
                     <i class="bi bi-pencil-square mr-2 text-lg"></i>
                     Edit Konten
@@ -163,7 +177,18 @@
                         <h3 class="text-xl font-bold text-slate-800 m-0">Misi Perusahaan</h3>
                     </div>
                     <div class="text-slate-600 leading-relaxed text-base">
-                        <p class="m-0 whitespace-pre-line">{{ $tentang->misi }}</p>
+                        <ul class="space-y-3 list-none pl-0">
+                            @foreach(explode("\n", $tentang->misi) as $misi_item)
+                                @if(trim($misi_item))
+                                <li class="flex items-start">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-500 text-white text-xs font-bold mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="bi bi-check2"></i>
+                                    </span>
+                                    <span class="flex-1">{{ trim($misi_item) }}</span>
+                                </li>
+                                @endif
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
                 @endif
@@ -192,7 +217,7 @@
         </div>
 
     @else
-        <!-- Empty State -->
+        <!-- Empty State - Tombol Create muncul di sini -->
         <div class="text-center py-24 px-8">
             <div class="inline-block mb-6">
                 <div class="w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-3xl flex items-center justify-center animate-float">

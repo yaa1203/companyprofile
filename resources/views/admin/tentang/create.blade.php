@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Tentang Kami')
-@section('page-title', 'Edit Tentang Kami')
-@section('page-description', 'Edit informasi perusahaan, visi, misi dan profil lengkap')
+@section('title', 'Tambah Tentang Kami')
+@section('page-title', 'Tambah Tentang Kami')
+@section('page-description', 'Buat informasi perusahaan, visi, misi dan profil lengkap')
 
 @section('content')
 <style>
@@ -24,28 +24,6 @@
     
     .animate-slideUp {
         animation: slideUp 0.6s ease;
-    }
-    
-    .image-preview-container {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .image-preview-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        border-radius: 1rem;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        padding: 1rem;
-    }
-    
-    .image-preview-container:hover .image-preview-overlay {
-        opacity: 1;
     }
     
     .file-input-wrapper {
@@ -81,6 +59,28 @@
     .file-input-label.has-file {
         background: linear-gradient(135deg, #dbeafe, #bfdbfe);
         border-color: #3b82f6;
+    }
+    
+    .image-preview-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .image-preview-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 1rem;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 1rem;
+    }
+    
+    .image-preview-container:hover .image-preview-overlay {
+        opacity: 1;
     }
 </style>
 
@@ -118,19 +118,18 @@
         
         <div class="relative z-10 flex items-center">
             <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-white text-2xl mr-5 shadow-lg">
-                <i class="bi bi-pencil-square"></i>
+                <i class="bi bi-plus-circle"></i>
             </div>
             <div>
-                <h2 class="text-3xl font-bold text-white m-0 mb-1">Edit Tentang Kami</h2>
-                <p class="text-indigo-100 text-sm m-0">Perbarui informasi perusahaan Anda</p>
+                <h2 class="text-3xl font-bold text-white m-0 mb-1">Tambah Tentang Kami</h2>
+                <p class="text-indigo-100 text-sm m-0">Buat informasi perusahaan untuk pertama kali</p>
             </div>
         </div>
     </div>
 
     <!-- Form Body -->
-    <form action="{{ route('tentang.update') }}" method="POST" enctype="multipart/form-data" class="p-8 md:p-10">
+    <form action="{{ route('tentang.store') }}" method="POST" enctype="multipart/form-data" class="p-8 md:p-10">
         @csrf
-        @method('PUT')
 
         <div class="space-y-6">
             <!-- Judul -->
@@ -138,11 +137,12 @@
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                     <i class="bi bi-type text-indigo-500 mr-2"></i>
                     Judul Perusahaan
+                    <span class="text-red-500">*</span>
                 </label>
                 <input 
                     type="text" 
                     name="judul" 
-                    value="{{ old('judul', $tentang->judul ?? '') }}" 
+                    value="{{ old('judul') }}" 
                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none"
                     placeholder="Masukkan judul perusahaan..."
                     required>
@@ -161,7 +161,7 @@
                     name="deskripsi" 
                     rows="5" 
                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 outline-none resize-none"
-                    placeholder="Jelaskan tentang perusahaan Anda...">{{ old('deskripsi', $tentang->deskripsi ?? '') }}</textarea>
+                    placeholder="Jelaskan tentang perusahaan Anda...">{{ old('deskripsi') }}</textarea>
                 @error('deskripsi')
                     <p class="text-red-500 text-sm mt-2"><i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}</p>
                 @enderror
@@ -179,7 +179,7 @@
                         name="visi" 
                         rows="6" 
                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all duration-300 outline-none resize-none"
-                        placeholder="Tuliskan visi perusahaan...">{{ old('visi', $tentang->visi ?? '') }}</textarea>
+                        placeholder="Tuliskan visi perusahaan...">{{ old('visi') }}</textarea>
                     @error('visi')
                         <p class="text-red-500 text-sm mt-2"><i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}</p>
                     @enderror
@@ -195,7 +195,7 @@
                         name="misi" 
                         rows="6" 
                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all duration-300 outline-none resize-none"
-                        placeholder="Tuliskan misi perusahaan...">{{ old('misi', $tentang->misi ?? '') }}</textarea>
+                        placeholder="Tuliskan misi perusahaan...">{{ old('misi') }}</textarea>
                     @error('misi')
                         <p class="text-red-500 text-sm mt-2"><i class="bi bi-exclamation-circle mr-1"></i>{{ $message }}</p>
                     @enderror
@@ -209,25 +209,6 @@
                     Gambar Perusahaan
                 </label>
 
-                <!-- Current Image Preview -->
-                @if($tentang && $tentang->gambar)
-                    <div class="mb-4">
-                        <p class="text-sm text-slate-500 mb-3 font-medium">Gambar Saat Ini:</p>
-                        <div class="image-preview-container">
-                            <img 
-                                src="{{ asset($tentang->gambar) }}" 
-                                alt="Current Image" 
-                                class="max-w-full h-auto max-h-80 rounded-2xl shadow-lg border-4 border-white object-cover"
-                                id="currentImage">
-                            <div class="image-preview-overlay">
-                                <span class="text-white text-sm font-medium">
-                                    <i class="bi bi-image mr-1"></i> Gambar Saat Ini
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
                 <!-- File Input -->
                 <div class="file-input-wrapper">
                     <input 
@@ -240,23 +221,23 @@
                         <div class="text-center">
                             <i class="bi bi-cloud-upload text-4xl text-slate-400 mb-2"></i>
                             <p class="text-slate-600 font-medium mb-1">
-                                <span id="fileName">Klik untuk upload gambar baru</span>
+                                <span id="fileName">Klik untuk upload gambar</span>
                             </p>
                             <p class="text-xs text-slate-400">PNG, JPG, JPEG (Max. 2MB)</p>
                         </div>
                     </label>
                 </div>
 
-                <!-- New Image Preview -->
-                <div id="newImagePreview" class="mt-4 hidden">
-                    <p class="text-sm text-slate-500 mb-3 font-medium">Preview Gambar Baru:</p>
+                <!-- Image Preview -->
+                <div id="imagePreview" class="mt-4 hidden">
+                    <p class="text-sm text-slate-500 mb-3 font-medium">Preview Gambar:</p>
                     <div class="image-preview-container">
                         <img 
                             id="preview" 
                             class="max-w-full h-auto max-h-80 rounded-2xl shadow-lg border-4 border-white object-cover">
                         <div class="image-preview-overlay">
                             <span class="text-white text-sm font-medium">
-                                <i class="bi bi-image mr-1"></i> Preview Gambar Baru
+                                <i class="bi bi-image mr-1"></i> Preview Gambar
                             </span>
                         </div>
                     </div>
@@ -272,9 +253,9 @@
         <div class="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t-2 border-gray-100">
             <button 
                 type="submit" 
-                class="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl px-6 py-3.5 font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center text-base">
-                <i class="bi bi-check-circle mr-2 text-lg"></i>
-                Simpan Perubahan
+                class="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl px-6 py-3.5 font-semibold transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center text-base">
+                <i class="bi bi-plus-circle mr-2 text-lg"></i>
+                Simpan Data
             </button>
             <a 
                 href="{{ route('tentang.index') }}" 
@@ -290,11 +271,18 @@
     function handleFileSelect(input) {
         const fileLabel = document.getElementById('fileLabel');
         const fileName = document.getElementById('fileName');
-        const newImagePreview = document.getElementById('newImagePreview');
+        const imagePreview = document.getElementById('imagePreview');
         const preview = document.getElementById('preview');
         
         if (input.files && input.files[0]) {
             const file = input.files[0];
+            
+            // Validate file size (2MB)
+            if (file.size > 2048 * 1024) {
+                alert('Ukuran file terlalu besar! Maksimal 2MB');
+                input.value = '';
+                return;
+            }
             
             // Update label
             fileName.textContent = file.name;
@@ -304,19 +292,19 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.src = e.target.result;
-                newImagePreview.classList.remove('hidden');
+                imagePreview.classList.remove('hidden');
                 
                 // Smooth scroll to preview
                 setTimeout(() => {
-                    newImagePreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    imagePreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             };
             reader.readAsDataURL(file);
         } else {
             // Reset if no file selected
-            fileName.textContent = 'Klik untuk upload gambar baru';
+            fileName.textContent = 'Klik untuk upload gambar';
             fileLabel.classList.remove('has-file');
-            newImagePreview.classList.add('hidden');
+            imagePreview.classList.add('hidden');
         }
     }
     
@@ -336,4 +324,4 @@
     });
 </script>
 
-@endsection
+@endsection 

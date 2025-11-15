@@ -47,6 +47,8 @@ Route::prefix('admin')->group(function () {
         Route::resource('portofolio', portofolioController::class);
         Route::get('tentang', [TentangController::class, 'index'])->name('tentang.index');
         Route::get('/tentang/edit', [TentangController::class, 'edit'])->name('tentang.edit');
+        Route::get('/tentang/create', [TentangController::class, 'create'])->name('tentang.create');
+        Route::post('/tentang/store', [TentangController::class, 'store'])->name('tentang.store');
         Route::put('/tentang/update', [TentangController::class, 'update'])->name('tentang.update');
         Route::get('kontak', [KontakController::class, 'index'])->name('kontak.index');
         Route::get('/kontak/{kontak}', [KontakController::class, 'show'])->name('kontak.show');

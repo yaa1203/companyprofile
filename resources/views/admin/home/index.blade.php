@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Dashboard')
-@section('breadcrumb', 'Dashboard')
 @section('page-title', 'Dashboard Admin')
 @section('page-description', 'Selamat datang di panel administrasi')
 
@@ -15,7 +14,6 @@
     .dashboard-container {
         min-height: 100vh;
         background: #f8fafc;
-        padding: 15px 0;
     }
 
     /* Welcome Section - Minimized */
@@ -401,7 +399,7 @@
     </div>
 
     <!-- Welcome Section -->
-    <div class="welcome-section">
+    <div class="welcome-section ">
         <div class="welcome-content">
             <h1 class="welcome-title">Selamat Datang, {{ \App\Models\Admin::find(session('admin_id'))->name ?? 'Admin' }}!</h1>
             <p class="welcome-subtitle">Kelola seluruh konten website Anda dengan mudah</p>

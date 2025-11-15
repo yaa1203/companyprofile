@@ -34,7 +34,7 @@
     <!-- Main Content -->
     <section class="py-16 sm:py-20 lg:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-16">
                 
                 <!-- Content Side -->
                 <div class="space-y-6 lg:space-y-8">
@@ -79,25 +79,72 @@
                             </div>
                             <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Misi Kami</h2>
                         </div>
-                        <p class="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
-                            {{ $tentang->misi ?? 'Memberikan solusi teknologi terbaik dengan pendekatan personal, kualitas tinggi, dan dukungan berkelanjutan untuk memastikan kesuksesan setiap klien.' }}
-                        </p>
+                        
+                        @if($tentang && $tentang->misi)
+                            <ul class="space-y-3">
+                                @foreach(explode("\n", $tentang->misi) as $misi_item)
+                                    @if(trim($misi_item))
+                                    <li class="flex items-start text-sm sm:text-base lg:text-lg text-gray-600">
+                                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold mr-3 mt-0.5 flex-shrink-0">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </span>
+                                        <span class="flex-1 leading-relaxed">{{ trim($misi_item) }}</span>
+                                    </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @else
+                            <ul class="space-y-3">
+                                <li class="flex items-start text-sm sm:text-base lg:text-lg text-gray-600">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold mr-3 mt-0.5 flex-shrink-0">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </span>
+                                    <span class="flex-1 leading-relaxed">Memberikan solusi teknologi terbaik dengan pendekatan personal</span>
+                                </li>
+                                <li class="flex items-start text-sm sm:text-base lg:text-lg text-gray-600">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold mr-3 mt-0.5 flex-shrink-0">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </span>
+                                    <span class="flex-1 leading-relaxed">Menjaga kualitas tinggi dalam setiap proyek yang kami kerjakan</span>
+                                </li>
+                                <li class="flex items-start text-sm sm:text-base lg:text-lg text-gray-600">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold mr-3 mt-0.5 flex-shrink-0">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </span>
+                                    <span class="flex-1 leading-relaxed">Memberikan dukungan berkelanjutan untuk memastikan kesuksesan klien</span>
+                                </li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
 
                 <!-- Image Side -->
                 <div class="order-first lg:order-last">
-                    <div class="relative lg:sticky lg:top-8">
-                        <div class="relative z-10 group">
-                            @if($tentang && $tentang->gambar)
-                                <img src="{{ asset($tentang->gambar) }}" 
-                                     alt="Tentang Kami" 
-                                     class="rounded-2xl shadow-2xl w-full h-64 sm:h-80 lg:h-auto object-cover group-hover:scale-105 transition-transform duration-500">
-                            @else
-                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" 
-                                     alt="Our Team" 
-                                     class="rounded-2xl shadow-2xl w-full h-64 sm:h-80 lg:h-auto object-cover group-hover:scale-105 transition-transform duration-500">
-                            @endif
+                    <div class="relative lg:sticky lg:top-20">
+                        <!-- White background wrapper -->
+                        <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-3xl shadow-lg">
+                            <div class="relative group overflow-hidden rounded-2xl shadow-xl">
+                                @if($tentang && $tentang->gambar)
+                                    <img src="{{ asset($tentang->gambar) }}" 
+                                         alt="Tentang Kami" 
+                                         class="w-full h-auto">
+                                @else
+                                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" 
+                                         alt="Our Team" 
+                                         class="w-full h-auto">
+                                @endif
+                                
+                                <!-- Overlay hover effect -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            </div>
                         </div>
                         
                         <!-- Background decorations -->

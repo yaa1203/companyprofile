@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Detail Pesan')
-@section('breadcrumb', 'Kontak > Detail')
 @section('page-title', 'Detail Pesan')
 @section('page-description', 'Lihat detail lengkap pesan dari pengunjung website')
 

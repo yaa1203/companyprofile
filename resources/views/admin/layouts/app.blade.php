@@ -158,18 +158,6 @@
             align-items: center;
         }
         
-        .page-breadcrumb {
-            display: flex;
-            align-items: center;
-            color: #64748b;
-            font-size: 14px;
-        }
-        
-        .page-breadcrumb i {
-            margin-right: 8px;
-            color: #6366f1;
-        }
-        
         .navbar-right {
             display: flex;
             align-items: center;
@@ -404,10 +392,6 @@
                 <button class="mobile-toggle" id="mobileToggle">
                     <i class="bi bi-list"></i>
                 </button>
-                <div class="page-breadcrumb">
-                    <i class="bi bi-house"></i>
-                    <span>Admin Panel / @yield('breadcrumb', 'Dashboard')</span>
-                </div>
             </div>
             
             <div class="navbar-right">

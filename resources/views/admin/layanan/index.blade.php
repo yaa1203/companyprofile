@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Layanan')
-@section('breadcrumb', 'Kelola Konten / Layanan')
 @section('page-title', 'Kelola Layanan')
 @section('page-description', 'Kelola semua layanan yang ditawarkan perusahaan Anda')
 
