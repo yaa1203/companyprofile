@@ -407,7 +407,7 @@
     </div>
 
     <!-- Statistics Cards -->
-    <div class="stats-grid">
+    <div class="stats-grid p-4">
         <!-- Tentang -->
         <div class="stats-card primary">
             <div class="stats-header">
